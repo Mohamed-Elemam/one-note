@@ -9,7 +9,7 @@ export async function sendEmailService({ to, subject ,message , attachments=[]}=
     secure: false,
     auth: {
       user: "mohamed.719.917@gmail.com",
-      pass: "ajtjpeaahsdjmmcq",
+      pass: "the password",
     },
   });
 
