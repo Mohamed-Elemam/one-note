@@ -17,7 +17,7 @@ export default function Home() {
         <input required type="password" className="block rounded-lg border border-gray-300 
         bg-gray-50 text-sm outline-none text-gray-900 ring-blue-400 focus:border-blue-500 focus:ring-2 w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  placeholder="Enter your password"/>
       </div>
-      <p className="my-3 dark:text-white">Don&apos;t have an account ? <a href="" className="text-blue-400 underline">Sign up</a></p>
+      <p className="my-3 dark:text-white">Don&apos;t have an account ? <Link href="/signup" className="text-blue-400 underline">Sign up</Link></p>
       <div className='flex justify-center'>
 
       <button type="submit" className="p-2.5 bg-blue-500 rounded-full w-[50%] text-center inline-block text-white hover:bg-blue-600 focus:ring ring-blue-300">
