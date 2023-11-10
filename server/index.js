@@ -1,5 +1,5 @@
 import express from "express";
-
+import cors from "cors";
 import { config } from "dotenv";
 config();
 import { dbConnection } from "./database/dbconnection.js";
@@ -8,9 +8,10 @@ import notesRouer from "./src/modules/note/note.router.js";
 
 const app = express();
 const port = process.env.PORT;
+// const port = req.port;
 
 dbConnection();
-// app.use(cors())
+app.use(cors())
 app.use(express.json());
 
 app.use("/user", userRouter);

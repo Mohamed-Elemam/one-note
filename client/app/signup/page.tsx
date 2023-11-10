@@ -3,13 +3,13 @@ import { ErrorMessage, Field, Form, Formik, useFormikContext } from "formik";
 import Link from "next/link";
 import * as yup from "yup";
 
-interface formValues {
+interface FormValues {
   userName: string;
   email: string;
   password: string;
   cpassword: string;
 }
-const initialValues: formValues = {
+const initialValues: FormValues = {
   userName: "",
   email: "",
   password: "",
@@ -34,14 +34,12 @@ const signupSchema = yup.object({
     .oneOf([yup.ref("password")], "password must match")
     .required("This field is required"),
 });
-
-const CheckBtn = () => {
+//TODO trim email value
+const SignupButton = () => {
   const formik = useFormikContext();
   console.log(formik);
   return (
     <div className="flex justify-center">
-      {formik.isValid && formik.dirty}
-
       <button
         disabled={!(formik.isValid && formik.dirty)}
         type="submit"
@@ -152,7 +150,7 @@ export default function Signup() {
             </Link>
           </p>
 
-          <CheckBtn />
+          <SignupButton />
         </Form>
       </Formik>
     </>

@@ -8,13 +8,9 @@ export async function sendEmailService({ to, subject ,message , attachments=[]}=
     service: "gmail",
     secure: false,
     auth: {
-<<<<<<< HEAD
       user: process.env.SEND_EMAIL_SERVICE_MAIL,
       pass: process.env.SEND_EMAIL_SERVICE_PASS,
-=======
-      user: "mohamed.719.917@gmail.com",
-      pass: "the password",
->>>>>>> b0567cb6b874a6c5d393f1c2d7883a15c09e984f
+
     },
   });
 

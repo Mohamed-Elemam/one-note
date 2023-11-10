@@ -30,7 +30,8 @@ export const signUp = async (req, res, next) => {
       process.env.CONFIRM_EMAIL_TOKEN_SECRET,
       { expiresIn: "1h" }
     );
-    const confirmLink = `http://localhost:3000/user/confirmEmail/${cofirmToken}`;
+    const confirmLink = `http://localhost:${process.env.PORT}/user/confirmEmail/${cofirmToken}`;
+    // const confirmLink = `${req.protocol}://${req.hostname}:${req.port}/user/confirmEmail/${cofirmToken}`;
     await sendEmailService({
       to: email,
       subject: "Please confirm your email",
@@ -60,7 +61,7 @@ export const confirmEmail = async (req, res, next) => {
     { isConfirmed: true },
     { new: true }
   );
-  res.status(200).json({ message: "email confirmed", user });
+  res.status(200).json({ message: "email confirmed" });
 };
 //===============================================================
 //* 2-login-->with create token
