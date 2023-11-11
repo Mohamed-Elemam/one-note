@@ -35,7 +35,7 @@ async function createNote(values: {}) {
 interface FormValues {
   title: string;
   description: string;
-  color: "yellow" | "green" | "purple";
+  color: "yellow" | "green" | "purple" ;
 }
 
 const initialValues: FormValues = {
@@ -93,11 +93,10 @@ const initialValues: FormValues = {
                 Choose note color
               </h3>
               <Field name="color" as="select">
-                <option value="red">Yellow</option>
+                <option value="yellow">Yellow</option>
                 <option value="green">Green</option>
-                <option value="blue">Purple</option>
+                <option value="purple">Purple</option>
               </Field>
-              {/* colors:["yellow","Blue","Green","Orange","Purple","Gray"  ] */}
             </div>
             <div className="flex gap-3">
               <button
@@ -110,7 +109,7 @@ const initialValues: FormValues = {
                 Update
               </button>
               <button className="px-5 py-2.5 bg-yellow-300 rounded-lg font-semibold ">
-                Delete +
+                Delete 
               </button>
               <Link
                 href={"/notes"}

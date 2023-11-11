@@ -12,7 +12,8 @@ const noteSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-   colors:["yellow","green","purple"  ]
+   color:{ type: String,
+    enum: ["yellow", "green", "purple"]}
   },
   { timestamps: true }
 );

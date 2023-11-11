@@ -7,11 +7,12 @@ import { userModel } from "../../../database/models/user.model.js";
 
 export const addNote = async (req, res) => {
   const { _id } = req.authUser;
-  const { title, description } = req.body;
+  const { title, description ,color} = req.body;
 
   const note = new notesModel({
     title,
     description,
+    color,
     userId: _id,
   });
 
@@ -26,7 +27,7 @@ export const updateNote = async (req, res) => {
   const { _id } = req.authUser;
   const { noteId } = req.query;
 
-  const { title, description } = req.body;
+  const { title, description,color } = req.body;
 
   const user = await userModel.findById(_id);
   if (!user) {
@@ -38,6 +39,7 @@ export const updateNote = async (req, res) => {
     {
       title,
       description,
+      color
     },
     { new: true }
   );
@@ -50,7 +52,7 @@ export const updateNote = async (req, res) => {
 };
 
 //*####
-//* 3-delete note(user must be logged in) (creator only can delete note)
+//* 3-delete note(user must be logged in) 
 //*####
 export const deleteNote = async (req, res) => {
   const { _id } = req.authUser;
