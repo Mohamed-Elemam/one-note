@@ -13,7 +13,7 @@ const noteSchema = new Schema(
       ref: "User",
     },
    color:{ type: String,
-    enum: ["yellow", "green", "purple"]}
+    enum: ["yellow","green","purple"]}
   },
   { timestamps: true }
 );

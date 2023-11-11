@@ -9,21 +9,33 @@ const NoteBody = (note: NoteCardData) => {
   async function deleteNote(noteId: string) {
     const { data } = await axios({
       method: "delete",
-      url: "http://localhost:8080/note",
+      url: 'http://localhost:8080/note/?noteId='+noteId,
       headers: {
         Authorization:
           "noteSecret eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1lZTk5ODczMUBnbWFpbC5jb20iLCJfaWQiOiI2NTRkMzVjZjAzZjZjMGI2MjQ5YmI0NTUiLCJpYXQiOjE2OTk1NTkwNTF9.T7dN9CzHNZPHMMB4xz0mw8Lzw7ivndX4XCfp_1DyA7Q",
       },
-      data: noteId,
     });
     console.log(data);
   }
 
 
+  
+  async function updateNote(noteId: string) {
+    const { data } = await axios({
+      method: "put",
+      url: 'http://localhost:8080/note/?noteId='+noteId,
+      headers: {
+        Authorization:
+          "noteSecret eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1lZTk5ODczMUBnbWFpbC5jb20iLCJfaWQiOiI2NTRkMzVjZjAzZjZjMGI2MjQ5YmI0NTUiLCJpYXQiOjE2OTk1NTkwNTF9.T7dN9CzHNZPHMMB4xz0mw8Lzw7ivndX4XCfp_1DyA7Q",
+      },
+    });
+    console.log(data);
+  }
+
   return (
     <>
       <div
-        className={`shadow-lg bg-green-200 rounded-lg m-0 p-5 flex flex-col `}
+        className={`bg-${note.color}-200 rounded-lg m-0 p-5 flex flex-col shadow-lg`}
         key={note?._id}
       >
         <div className="text-gray-900">
@@ -41,7 +53,7 @@ const NoteBody = (note: NoteCardData) => {
           <span
             className="cursor-pointer hover:text-gray-600 text-xl "
             onClick={() => {
-                console.log(note?._id);
+                updateNote(note?._id);
             }}
             >
             <FaRegEdit />
