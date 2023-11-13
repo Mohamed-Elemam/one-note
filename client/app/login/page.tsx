@@ -2,6 +2,7 @@
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik, useFormikContext } from "formik";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Toaster, toast } from "react-hot-toast";
 import * as yup from "yup";
 
@@ -24,23 +25,8 @@ const loginSchema = yup.object({
     .matches(/[a-z]/, "Password can only contain Latin letters."),
 });
 
-const handleLogin = async (values: FormValues) => {
-  try {
-    const { data } = await axios({
-      method: "post",
-      url: "http://localhost:8080/user/login",
-      data: values,
-    });
-    console.log(data);
-    toast.success(data?.message);
-  } catch (error: any) {
-    toast.error(error.response.data.message);
-  }
-};
-
 const LoginButton = () => {
   const formik = useFormikContext();
-
   return (
     <div className="flex justify-center">
       <button
@@ -59,13 +45,32 @@ const demoLoginData: FormValues = {
   password: process.env.NEXT_PUBLIC_DEMO_PASSWORD,
 };
 
-const handleDemoLogin = () => {
-  handleLogin(demoLoginData);
-  console.log(demoLoginData)
+
+export default function Home()
+ {
+const router = useRouter()
+
+const handleLogin = async (values: FormValues) => {
+  try {
+    const { data } = await axios({
+      method: "post",
+      url: "http://localhost:8080/user/login",
+      data: values,
+    });
+    toast.success(data?.message);
+    console.log(data.userToken)
+    // router.push('/notes')
+  } catch (error: any) {
+    toast.error(error.response.data.message);
+  }
 };
 
-export default function Home() {
-  return (
+const handleDemoLogin = () => {
+  handleLogin(demoLoginData);
+};
+
+
+return (
     <div className="container  mt-20  p-10 rounded-lg  glass md:w-[50%] xs:w-[75%] mx-auto">
       <Toaster />
 
@@ -129,7 +134,7 @@ export default function Home() {
               </p>
               <button
                 onClick={() => {
-                  handleDemoLogin
+                  handleDemoLogin()
                 }}
                 className=" my-5 p-2.5 bg-blue-500 rounded-2xl w-[50%] text-center inline-block text-white hover:bg-blue-600 focus:ring ring-blue-300"
               >
