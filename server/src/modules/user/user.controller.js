@@ -19,50 +19,53 @@ export const signUp = async (req, res, next) => {
       userName,
       email,
       password: hashedPassword,
-     
       isDeleted: false,
       isOnline: false,
     });
     await userInstance.save();
 
-    const cofirmToken = jwt.sign(
-      { email },
-      process.env.CONFIRM_EMAIL_TOKEN_SECRET,
-      { expiresIn: "1h" }
+    const userToken = jwt.sign(
+      { email,userName},
+      process.env.SIGN_IN_TOKEN_SECRET
     );
-    const confirmLink = `http://localhost:${process.env.PORT}/user/confirmEmail/${cofirmToken}`;
-    // const confirmLink = `${req.protocol}://${req.hostname}:${req.port}/user/confirmEmail/${cofirmToken}`;
-    await sendEmailService({
-      to: email,
-      subject: "Please confirm your email",
-      message: `<a href='${confirmLink}'>click here to confirm</a>`,
-    });
+    // const cofirmToken = jwt.sign(
+    //   { email },
+    //   process.env.CONFIRM_EMAIL_TOKEN_SECRET,
+    //   { expiresIn: "1h" }
+    // );
+    // const confirmLink = `http://localhost:${process.env.PORT}/user/confirmEmail/${cofirmToken}`;
+    // // const confirmLink = `${req.protocol}://${req.hostname}:${req.port}/user/confirmEmail/${cofirmToken}`;
+    // await sendEmailService({
+    //   to: email,
+    //   subject: "Please confirm your email",
+    //   message: `<a href='${confirmLink}'>click here to confirm</a>`,
+    // });
 
-    res.status(200).json({ message: "Done", userInstance });
+    res.status(200).json({ message: "Done", userInstance ,userToken });
   } else {
     return res.status(400).json({ message: "passwords dont match" });
   }
 };
 //==================================confimation==================
-export const confirmEmail = async (req, res, next) => {
-  const { token } = req.params;
-  const decodedToken = jwt.verify(
-    token,
-    process.env.CONFIRM_EMAIL_TOKEN_SECRET
-  );
-  const confirmationCheck = await userModel.findOne({
-    email: decodedToken.email,
-  });
-  if (confirmationCheck.isConfirmed === true) {
-    return res.status(400).json({ message: "your email is already confirmed" });
-  }
-  const user = await userModel.findOneAndUpdate(
-    { email: decodedToken.email },
-    { isConfirmed: true },
-    { new: true }
-  );
-  res.status(200).json({ message: "email confirmed" });
-};
+// export const confirmEmail = async (req, res, next) => {
+//   const { token } = req.params;
+//   const decodedToken = jwt.verify(
+//     token,
+//     process.env.CONFIRM_EMAIL_TOKEN_SECRET
+//   );
+//   const confirmationCheck = await userModel.findOne({
+//     email: decodedToken.email,
+//   });
+//   if (confirmationCheck.isConfirmed === true) {
+//     return res.status(400).json({ message: "your email is already confirmed" });
+//   }
+//   const user = await userModel.findOneAndUpdate(
+//     { email: decodedToken.email },
+//     { isConfirmed: true },
+//     { new: true }
+//   );
+//   res.status(200).json({ message: "email confirmed" });
+// };
 //===============================================================
 //* 2-login-->with create token
 export const login = async (req, res, next) => {
@@ -85,7 +88,7 @@ export const login = async (req, res, next) => {
   user = await user.save();
 
   const userToken = jwt.sign(
-    { email, _id: user.id },
+    { email, userName:user.userName ,_id:user._id },
     process.env.SIGN_IN_TOKEN_SECRET
   );
   res.status(200).json({ message: "Login successful", userToken });

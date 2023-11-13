@@ -1,4 +1,6 @@
-import { Player, Controls } from '@lottiefiles/react-lottie-player';
+"use client"
+
+
 
 export default function Home() {
   return (
@@ -19,19 +21,12 @@ export default function Home() {
             </a>
           </div>
 
-          {/* <div>
-  <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module" async></script> 
+          <div>
+  {/* <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module" async></script>  */}
 
-<dotlottie-player src="https://lottie.host/1c2e5a65-22b8-4f7c-ad16-01a456372a02/LO5ZcRPn0V.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
-  </div> */}
-          <Player
-            autoplay
-            loop
-            src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json"
-            style={{ height: "300px", width: "300px" }}
-          >
-            {/* <Controls visible={true} buttons={['play', 'repeat', 'frame', 'debug']} /> */}
-          </Player>
+<video src="https://lottie.host/1c2e5a65-22b8-4f7c-ad16-01a456372a02/LO5ZcRPn0V.json"   loop ></video>
+  </div>
+          
         </div>
       </main>
     </main>

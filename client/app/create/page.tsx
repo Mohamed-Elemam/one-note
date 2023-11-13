@@ -1,7 +1,6 @@
 "use client";
 import axios from "axios";
-import { Field, Form, Formik, replace } from "formik";
-import { redirect } from "next/dist/server/api-utils";
+import { Field, Form, Formik,  } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -9,7 +8,6 @@ import React from "react";
 
 
 const Create = () => {
-
 
 const router = useRouter()
 
@@ -97,7 +95,6 @@ const initialValues: FormValues = {
                 <option value="green">Green</option>
                 <option value="purple">Purple</option>
               </Field>
-              <label  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
 
             </div>
             <div className="flex gap-3">

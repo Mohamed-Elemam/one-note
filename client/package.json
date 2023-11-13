@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@lottiefiles/react-lottie-player": "^3.5.3",
     "axios": "^1.6.1",
     "flowbite": "^2.1.1",
     "formik": "^2.4.5",

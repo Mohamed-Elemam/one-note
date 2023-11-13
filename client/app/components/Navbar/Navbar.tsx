@@ -8,17 +8,17 @@ const Navbar = () => {
     <>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <a
-            href="https://flowbite.com/"
-            className="flex items-center space-x-3 rtl:space-x-reverse"
+          <Link
+            href="/"
+            className="flex items-center space-x-2 rtl:space-x-reverse"
           >
             <span className="text-3xl">
               <FcViewDetails />
             </span>
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+            <span className="text-2xl font-semibold whitespace-nowrap dark:text-white">
               OneNote
             </span>
-          </a>
+          </Link>
           <button
             data-collapse-toggle="navbar-default"
             type="button"
@@ -36,9 +36,9 @@ const Navbar = () => {
             >
               <path
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M1 1h15M1 7h15M1 13h15"
               />
             </svg>
@@ -93,23 +93,24 @@ const Navbar = () => {
             id="navbar-default"
           >
            <div className="flex gap-3 ">
+            
              <Link
                href="/signup"
-               className=" bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+               className="inline-flex items-center  px-4 py-2 bg-blue-300 rounded-lg hover:bg-blue-400 font-semibold focus:outline-none text-base mt-4 md:mt-0"
              >
-               Signup
+               Sign up
              </Link>
              <Link
                href="/login"
                className="inline-flex items-center  px-4 py-2 bg-blue-300 rounded-lg hover:bg-blue-400 font-semibold focus:outline-none text-base mt-4 md:mt-0"
              >
-               Login
+               Log in
              </Link>
              <Link
                href="/"
                className="inline-flex items-center px-5 py-2.5 bg-blue-300 rounded-lg hover:bg-blue-400 font-semibold focus:outline-none text-base mt-4 md:mt-0 "
              >
-               Logout
+               Log out
              </Link>
            </div>
           </div>
