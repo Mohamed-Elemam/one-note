@@ -4,6 +4,7 @@ import { Field, Form, Formik,  } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { userToken } from "../notes/page";
 
 
 
@@ -18,7 +19,7 @@ async function createNote(values: {}) {
       url: "http://localhost:8080/note",
       headers: {
         Authorization:
-          "noteSecret eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1lZTk5ODczMUBnbWFpbC5jb20iLCJfaWQiOiI2NTRkMzVjZjAzZjZjMGI2MjQ5YmI0NTUiLCJpYXQiOjE2OTk1NTkwNTF9.T7dN9CzHNZPHMMB4xz0mw8Lzw7ivndX4XCfp_1DyA7Q",
+        process.env.NEXT_PUBLIC_TOKEN_PREFIX as string +" " + userToken,
       },
       data: values
     });

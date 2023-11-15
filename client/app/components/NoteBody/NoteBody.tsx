@@ -1,10 +1,11 @@
 import React from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
-import { NoteCardData } from "@/app/notes/page";
+import { NoteCardData, userToken } from "@/app/notes/page";
 import axios from "axios";
+import { Tooltip } from "flowbite";
 
-const NoteBody = (note: NoteCardData) => {
+const NoteBody = (note: NoteCardData ) => {
 
   async function deleteNote(noteId: string) {
     const { data } = await axios({
@@ -12,7 +13,7 @@ const NoteBody = (note: NoteCardData) => {
       url: 'http://localhost:8080/note/?noteId='+noteId,
       headers: {
         Authorization:
-          "noteSecret eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1lZTk5ODczMUBnbWFpbC5jb20iLCJfaWQiOiI2NTRkMzVjZjAzZjZjMGI2MjQ5YmI0NTUiLCJpYXQiOjE2OTk1NTkwNTF9.T7dN9CzHNZPHMMB4xz0mw8Lzw7ivndX4XCfp_1DyA7Q",
+        process.env.NEXT_PUBLIC_TOKEN_PREFIX as string +" " + userToken,
       },
     });
     console.log(data);
@@ -26,7 +27,7 @@ const NoteBody = (note: NoteCardData) => {
       url: 'http://localhost:8080/note/?noteId='+noteId,
       headers: {
         Authorization:
-          "noteSecret eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1lZTk5ODczMUBnbWFpbC5jb20iLCJfaWQiOiI2NTRkMzVjZjAzZjZjMGI2MjQ5YmI0NTUiLCJpYXQiOjE2OTk1NTkwNTF9.T7dN9CzHNZPHMMB4xz0mw8Lzw7ivndX4XCfp_1DyA7Q",
+        process.env.NEXT_PUBLIC_TOKEN_PREFIX as string +" " + userToken,
       },
     });
     console.log(data);
@@ -58,14 +59,17 @@ const NoteBody = (note: NoteCardData) => {
             >
             <FaRegEdit />
           </span>
+          <Tooltip content="Delete" placement="bottom">
           <span
             className="cursor-pointer hover:text-gray-600 text-xl "
             onClick={() => {
-                deleteNote(note?._id)
+              deleteNote(note?._id)
+              
             }}
-          >
+            >
             <AiFillDelete />
           </span>
+            </Tooltip>
         </div>
       </div>
     </>

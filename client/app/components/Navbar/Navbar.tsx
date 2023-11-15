@@ -2,6 +2,7 @@ import React from "react";
 import { FcViewDetails } from "react-icons/fc";
 import { IconContext } from "react-icons";
 import Link from "next/link";
+import { userToken } from "@/app/notes/page";
 
 const Navbar = () => {
   return (
@@ -93,25 +94,34 @@ const Navbar = () => {
             id="navbar-default"
           >
            <div className="flex gap-3 ">
+            {userToken?
             
-             <Link
-               href="/signup"
-               className="inline-flex items-center  px-4 py-2 bg-blue-300 rounded-lg hover:bg-blue-400 font-semibold focus:outline-none text-base mt-4 md:mt-0"
-             >
-               Sign up
-             </Link>
-             <Link
-               href="/login"
-               className="inline-flex items-center  px-4 py-2 bg-blue-300 rounded-lg hover:bg-blue-400 font-semibold focus:outline-none text-base mt-4 md:mt-0"
-             >
-               Log in
-             </Link>
              <Link
                href="/"
                className="inline-flex items-center px-5 py-2.5 bg-blue-300 rounded-lg hover:bg-blue-400 font-semibold focus:outline-none text-base mt-4 md:mt-0 "
              >
                Log out
              </Link>
+            :
+            
+             (
+             <>
+             <Link
+               href="/signup"
+               className="inline-flex items-center  px-4 py-2 bg-blue-300 rounded-lg hover:bg-blue-400 font-semibold focus:outline-none text-base mt-4 md:mt-0"
+               >
+               Sign up
+             </Link>
+             <Link
+               href="/login"
+               className="inline-flex items-center  px-4 py-2 bg-blue-300 rounded-lg hover:bg-blue-400 font-semibold focus:outline-none text-base mt-4 md:mt-0"
+               >
+               Log in
+             </Link>
+               </>
+             )
+            }
+
            </div>
           </div>
         </div>

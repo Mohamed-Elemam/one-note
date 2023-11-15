@@ -41,8 +41,8 @@ const LoginButton = () => {
 };
 
 const demoLoginData: FormValues = {
-  email: process.env.NEXT_PUBLIC_DEMO_EMAIL,
-  password: process.env.NEXT_PUBLIC_DEMO_PASSWORD,
+  email: process.env.NEXT_PUBLIC_DEMO_EMAIL as string,
+  password: process.env.NEXT_PUBLIC_DEMO_PASSWORD as string,
 };
 
 
@@ -58,8 +58,8 @@ const handleLogin = async (values: FormValues) => {
       data: values,
     });
     toast.success(data?.message);
-    console.log(data.userToken)
-    // router.push('/notes')
+    localStorage.setItem("userToken",data.userToken)
+    router.push('/notes')
   } catch (error: any) {
     toast.error(error.response.data.message);
   }

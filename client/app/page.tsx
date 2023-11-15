@@ -1,10 +1,13 @@
 "use client"
 
+import Loading from "./components/Loading/Loading";
+import ModalBody from "./components/ModalBody/ModalBody";
+
 
 
 export default function Home() {
   return (
-    <main>
+    <>
       <main className="container mx-auto px-5 py-24">
         <div className="grid md:grid-cols-2 sm:grid-col-1" items->
           <div>
@@ -29,6 +32,9 @@ export default function Home() {
           
         </div>
       </main>
-    </main>
+
+<ModalBody/>
+<Loading/>
+    </>
   );
 }
