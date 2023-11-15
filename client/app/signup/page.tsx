@@ -56,7 +56,7 @@ const SignupButton = () => {
 
 //TODO trim email value/**************************** */
 export default function Signup() {
-const router = useRouter()
+ const router = useRouter()
 
 const handleSignup =async (values:FormValues)=>{
   try{const {data}= await axios({
