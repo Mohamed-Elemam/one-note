@@ -7,7 +7,7 @@ import { userToken } from "@/app/notes/page";
 const Navbar = () => {
   return (
     <>
-      <nav className="bg-white border-gray-200 dark:bg-gray-900">
+      <nav className="bg-white border-gray-200 border dark:bg-gray-900 ">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link
             href="/"
@@ -98,7 +98,9 @@ const Navbar = () => {
             
              <Link
                href="/"
-               className="inline-flex items-center px-5 py-2.5 bg-blue-300 rounded-lg hover:bg-blue-400 font-semibold focus:outline-none text-base mt-4 md:mt-0 "
+               className="inline-flex items-center rounded-lg  px-4 py-2 border bg-transparent border-indigo-900 hover:bg-indigo-900 hover:text-white font-semibold focus:outline-none text-base mt-4 md:mt-0"
+
+              //  className="inline-flex items-center px-5 py-2.5 bg-blue-300 rounded-lg hover:bg-blue-400 font-semibold focus:outline-none text-base mt-4 md:mt-0 "
              >
                Log out
              </Link>
@@ -114,7 +116,8 @@ const Navbar = () => {
              </Link>
              <Link
                href="/login"
-               className="inline-flex items-center  px-4 py-2 bg-blue-300 rounded-lg hover:bg-blue-400 font-semibold focus:outline-none text-base mt-4 md:mt-0"
+               className="inline-flex items-center  px-4 py-2 border bg-transparent border-indigo-900 hover:bg-indigo-900 hover:text-white font-semibold focus:outline-none text-base mt-4 md:mt-0"
+              //  className="inline-flex items-center  px-4 py-2 bg-blue-300 rounded-lg hover:bg-blue-400 font-semibold focus:outline-none text-base mt-4 md:mt-0"
                >
                Log in
              </Link>

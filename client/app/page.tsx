@@ -1,40 +1,37 @@
-"use client"
+"use client";
 
+import Link from "next/link";
 import Loading from "./components/Loading/Loading";
 import ModalBody from "./components/ModalBody/ModalBody";
-
-
 
 export default function Home() {
   return (
     <>
-      <main className="container mx-auto px-5 py-24">
-        <div className="grid md:grid-cols-2 sm:grid-col-1" items->
-          <div>
-            <h1 className="text-4xl font-bold mb-3">one Note</h1>
-            <p className="text-grey-700 font-medium">
-              where notes are **A place for great ideas. Notes is designed for
-              whatever`s on your mind. Write down your thoughts.
-            </p>
-            <a
-              href={"/signup"}
-              className="inline-block px-4 py-2.5 my-3 font-semibold text-white bg-green-300 rounded-lg"
-            >
-              Get Started
-            </a>
+      <main className=" bg-indigo-50 min-h-screen  ">
+        <div className="container mx-auto px-5 py-24">
+          <div className="grid md:grid-cols-2 sm:grid-col-1" >
+            <div className="flex flex-col gap-10">
+              <h1 className="text-7xl font-bold  text-indigo-900">
+                OneNote
+              </h1>
+              <p className="text-indigo-900 font-semibold text-2xl">
+              <span className="text-3xl">&#34;</span>Capturing thoughts, one note at a time - because great ideas deserve a place to grow. <span className="text-3xl">&#34;</span>
+            <p className="my-1">- Albert Einstein</p>
+              </p>
+              <Link
+                href={"/signup"}
+                className="inline  focus:outline-none px-4 py-2.5  font-semibold text-white bg-indigo-700 rounded-lg hover:bg-indigo-800"
+              >
+                Get Started
+              </Link>
+            </div>
+
+            <div></div>
           </div>
-
-          <div>
-  {/* <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module" async></script>  */}
-
-<video src="https://lottie.host/1c2e5a65-22b8-4f7c-ad16-01a456372a02/LO5ZcRPn0V.json"   loop ></video>
-  </div>
-          
         </div>
       </main>
 
-<ModalBody/>
-<Loading/>
+      {/* <ModalBody/> */}
     </>
   );
 }

@@ -4,6 +4,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { NoteCardData, userToken } from "@/app/notes/page";
 import axios from "axios";
 import { Tooltip } from "flowbite";
+import Link from "next/link";
 
 const NoteBody = (note: NoteCardData ) => {
 
@@ -35,43 +36,21 @@ const NoteBody = (note: NoteCardData ) => {
 
   return (
     <>
-      <div
-        className={`bg-${note.color}-200 rounded-lg m-0 p-5 flex flex-col shadow-lg`}
-        key={note?._id}
-      >
-        <div className="text-gray-900">
-          <p className="text-xl font-semibold">{note?.title}</p>
-          <p className="text-xl font-semibold">{note?.color}</p>
-          <p className="mb-5"> {note?.description}</p>
-        </div>
-        <div className="flex justify-end gap-3 text-sm text-gray-700">
-          <p>{note?.description?.length}</p>
-          {/* note? words count */}
-          <p>{note?.updatedAt}</p>
-          {/* <p>09:12PM</p> */}
-        </div>
-        <div className="flex gap-3 justify-end mt-3">
-          <span
-            className="cursor-pointer hover:text-gray-600 text-xl "
-            onClick={() => {
-                updateNote(note?._id);
-            }}
-            >
-            <FaRegEdit />
-          </span>
-          <Tooltip content="Delete" placement="bottom">
-          <span
-            className="cursor-pointer hover:text-gray-600 text-xl "
-            onClick={() => {
-              deleteNote(note?._id)
-              
-            }}
-            >
-            <AiFillDelete />
-          </span>
-            </Tooltip>
-        </div>
-      </div>
+  <>
+  <Link
+    href="#"
+    className={`block max-w-sm p-6 bg-white border border-${note.color}-200 rounded-lg shadow hover:bg-${note.color}-100 dark:bg-${note.color}-800 dark:border-${note.color}-700 dark:hover:bg-${note.color}-700`}
+  >
+    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+      {note.title}
+    </h5>
+    <p className="font-normal text-gray-700 dark:text-gray-400">
+      {note.description}
+    </p>
+  </Link>
+</>
+
+    
     </>
   );
 };
