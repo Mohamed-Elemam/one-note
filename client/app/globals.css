@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap');
 
 *{
   margin: 0;
@@ -21,4 +22,16 @@
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+  .note-title {
+    font-weight: bold;
+    font-size: 2rem;
+  }
+
+.note-desc{
+  font-family: 'Reenie Beanie', cursive;
+  font-size: 2rem;
+
 }
