@@ -1,11 +1,11 @@
 import React from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
-import { NoteCardData, userToken } from "@/app/notes/page";
+import { NoteCardData, getAllNotes, userToken } from "@/app/notes/page";
 import axios from "axios";
 import { Tooltip } from "flowbite-react";
 
-const NoteBody = (note: NoteCardData) => {
+const NoteBody = (note: NoteCardData ,handleGetNotes:any) => {
   async function deleteNote(noteId: string) {
     const { data } = await axios({
       method: "delete",
@@ -34,18 +34,18 @@ const NoteBody = (note: NoteCardData) => {
     <>
       <div
         onClick={() => console.log(note._id)}
-        className={`block max-w-sm p-6 bg-${note.color} border border-${note.color}-200 rounded-sm shadow hover:bg-${note.color}-100 dark:bg-${note.color}-800 dark:border-${note.color}-700 dark:hover:bg-${note.color}-700`}
+        className={`block max-w-sm p-6 bg-${note.color}-200 border border-${note.color}-200 rounded-sm shadow hover:bg-${note.color}-100 dark:bg-${note.color}-800 dark:border-${note.color}-700 dark:hover:bg-${note.color}-700`}
       >
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <h5 className="mb-2 note-tilte text-gray-900 dark:text-white">
           {note.title}
         </h5>
-        <p className="font-normal text-gray-700 dark:text-gray-400 note-desc">
+        <p className=" text-gray-700 dark:text-gray-400 note-desc">
           {note.description}
         </p>
         <div className="flex justify-end gap-3 text-sm text-gray-700">
           <p>{note?.description?.length}</p>
           {/* note? words count */}
-          <p>{note?.updatedAt}</p>
+          <p>{note?.updatedAt.slice(0,10)}</p>
           {/* <p>09:12PM</p> */}
         </div>
         <div className="flex gap-3 justify-end mt-3">
@@ -56,6 +56,7 @@ const NoteBody = (note: NoteCardData) => {
               className="cursor-pointer hover:text-indigo-900 text-xl "
               onClick={() => {
                 updateNote(note?._id);
+                handleGetNotes()
               }}
             >
               <FaRegEdit />
@@ -66,6 +67,7 @@ const NoteBody = (note: NoteCardData) => {
               className="cursor-pointer hover:text-indigo-900 text-xl "
               onClick={() => {
                 deleteNote(note?._id);
+                handleGetNotes()
               }}
             >
               <AiFillDelete />

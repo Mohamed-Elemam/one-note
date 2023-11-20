@@ -4,17 +4,12 @@ import { Button, Modal } from "flowbite-react";
 import { useState } from "react";
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { userToken } from "@/app/notes/page";
 
-export const  handleModal=()=>{
 
-}
 
-const NoteModalBody = () => {
-  const router = useRouter();
+const NoteModalBody = ({ handleGetNotes }) => {
 
   async function createNote(values: {}) {
     try {
@@ -28,16 +23,17 @@ const NoteModalBody = () => {
         data: values,
       });
       console.log(data);
-      toast.success("123");
+      toast.success("done");
 
       if (data.message === "note added successfully") {
-        router.push("/notes");
+        handleGetNotes();
       }
     } catch (error: any) {
       console.error(error);
       toast.error(error.response.data);
     }
   }
+
   interface FormValues {
     title: string;
     description: string;
@@ -63,6 +59,7 @@ const NoteModalBody = () => {
             onSubmit={(values) => {
               console.log(values);
               createNote(values);
+              setOpenModal(false);
             }}
           >
             <Form>
@@ -88,7 +85,7 @@ const NoteModalBody = () => {
                   as="textarea"
                   name="description"
                   cols={30}
-                  rows={10}
+                  rows={9}
                   className="block rounded-lg border resize-none	 border-gray-300 
                 bg-gray-50 text-sm outline-none text-gray-900  ring-blue-400 focus:border-blue-500 focus:ring-2 w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Enter your note here "
@@ -112,16 +109,16 @@ const NoteModalBody = () => {
 
               <Modal.Footer>
                 <Button
-                // color="indigo"
-                
                   type="submit"
-                  className=" bg-indigo-700  hover:bg-indigo-800"
-
-                  // onClick={() => setOpenModal(false)}
+                  className=" bg-indigo-700  hover:bg-indigo-800 "
                 >
                   Save
                 </Button>
-                <Button color="indigo" className="hover:hover:text-indigo-800" onClick={() => setOpenModal(false)}>
+                <Button
+                  color="indigo"
+                  className="hover:hover:text-indigo-800"
+                  onClick={() => setOpenModal(false)}
+                >
                   Cancel
                 </Button>
               </Modal.Footer>

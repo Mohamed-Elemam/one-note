@@ -21,33 +21,40 @@ export type NoteCardData = {
 export const userToken: string = localStorage.getItem("userToken") as string;
 export const decodedToken = jwt.decode(userToken as string);
 
+export async function getAllNotes(
+  setData: React.Dispatch<React.SetStateAction<NoteCardData[]>>
+) {
+  try {
+    const { data } = await axios.get("http://localhost:8080/note", {
+      headers: {
+        Authorization:
+          (process.env.NEXT_PUBLIC_TOKEN_PREFIX as string) + " " + userToken,
+      },
+    });
+    console.log(12359);
+
+    setData(data.notes as NoteCardData[]);
+  } catch (error: any) {
+    console.error("Error fetching notes:", error);
+    toast.error(error.response.data);
+  }
+}
+
 const Notes = () => {
   const [notes, setNotes] = useState<NoteCardData[]>([]);
 
-  async function getAllNotes() {
-    try {
-      const { data } = await axios.get("http://localhost:8080/note", {
-        headers: {
-          Authorization:
-            (process.env.NEXT_PUBLIC_TOKEN_PREFIX as string) + " " + userToken,
-        },
-      });
+  const handleGetNotes = () => {
+    getAllNotes(setNotes);
+  };
 
-      setNotes(data.notes as NoteCardData[]);
-    } catch (error: any) {
-      console.error("Error fetching notes:", error);
-      toast.error(error.response.data);
-    }
-  }
   useEffect(() => {
-    getAllNotes();
+    handleGetNotes;
   }, []);
 
   return (
     <>
       <Toaster />
       <section className="container mx-auto px-5 py-24">
-        {/* <!-- add note or update delete ? --> */}
         <div className="justify-end flex p-5 gap-3">
           <Link
             href={"/create"}
@@ -66,7 +73,11 @@ const Notes = () => {
                 {/* <!-- note body -->
     <!-- cursor pointer to update? --> */}
                 {notes.map((note: NoteCardData) => (
-                  <NoteBody {...note} key={note._id} />
+                  <NoteBody
+                    {...note}
+                    handleGetNotes={handleGetNotes}
+                    key={note._id}
+                  />
                 ))}
               </div>
             ) : (
@@ -81,7 +92,7 @@ const Notes = () => {
             </div>
           )}
         </div>
-        <NoteModalBody />
+        <NoteModalBody handleGetNotes={handleGetNotes} />
       </section>
     </>
   );
