@@ -10,6 +10,7 @@ import NoteModalBody from "../components/ModalBody/ModalBody";
 
 // const userdara = js
 export type NoteCardData = {
+  getAllNotes:()=>void;
   _id: string;
   title: string;
   description: string;
@@ -18,38 +19,37 @@ export type NoteCardData = {
   updatedAt: string;
   color: string;
 };
-export const userToken: string = localStorage.getItem("userToken") as string;
+interface handleNotesFn{
+  getAllNotes:()=>void
+}
+export const userToken: string = window?.localStorage?.getItem("userToken") as string;
 export const decodedToken = jwt.decode(userToken as string);
 
-export async function getAllNotes(
-  setData: React.Dispatch<React.SetStateAction<NoteCardData[]>>
-) {
-  try {
-    const { data } = await axios.get("http://localhost:8080/note", {
-      headers: {
-        Authorization:
-          (process.env.NEXT_PUBLIC_TOKEN_PREFIX as string) + " " + userToken,
-      },
-    });
-    console.log(12359);
 
-    setData(data.notes as NoteCardData[]);
-  } catch (error: any) {
-    console.error("Error fetching notes:", error);
-    toast.error(error.response.data);
-  }
-}
 
 const Notes = () => {
   const [notes, setNotes] = useState<NoteCardData[]>([]);
 
-  const handleGetNotes = () => {
-    getAllNotes(setNotes);
-  };
+   async function getAllNotes() {
+    try {
+      const { data } = await axios.get("http://localhost:8080/note", {
+        headers: {
+          Authorization:
+            (process.env.NEXT_PUBLIC_TOKEN_PREFIX as string) + " " + userToken,
+        },
+      });
+      console.log(12359);
+  
+      setNotes(data.notes as NoteCardData[]);
+    } catch (error: any) {
+      console.error("Error fetching notes:", error);
+      toast.error(error.response.data);
+    }
+  }
 
   useEffect(() => {
-    handleGetNotes;
-  }, []);
+    getAllNotes
+  }, [notes]);
 
   return (
     <>
@@ -70,12 +70,11 @@ const Notes = () => {
           {notes?.length ? (
             notes ? (
               <div className="inline-grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-3 gap-3">
-                {/* <!-- note body -->
-    <!-- cursor pointer to update? --> */}
+            
                 {notes.map((note: NoteCardData) => (
                   <NoteBody
                     {...note}
-                    handleGetNotes={handleGetNotes}
+                    getAllNotes={getAllNotes}
                     key={note._id}
                   />
                 ))}
@@ -92,7 +91,7 @@ const Notes = () => {
             </div>
           )}
         </div>
-        <NoteModalBody handleGetNotes={handleGetNotes} />
+        <NoteModalBody getAllNotes={getAllNotes} />
       </section>
     </>
   );

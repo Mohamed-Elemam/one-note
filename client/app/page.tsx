@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import ModalBody from "./components/ModalBody/ModalBody";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -9,7 +10,7 @@ export default function Home() {
       <main className=" bg-indigo-50 min-h-screen  ">
         <div className="container mx-auto px-5 py-24">
           <div className="grid md:grid-cols-2 sm:grid-col-1">
-            <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-10 items-start">
               <h1 className="text-7xl font-bold  text-indigo-900">OneNote</h1>
               <div>
                 <p className="text-indigo-900 font-semibold text-2xl">
@@ -29,7 +30,9 @@ export default function Home() {
               </Link>
             </div>
 
-            <div></div>
+            <div>
+              <Image width={200} height={200} src="../public/images/Notes-pana.svg" alt="taking-notes" />
+            </div>
           </div>
         </div>
       </main>

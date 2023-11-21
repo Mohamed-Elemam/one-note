@@ -5,7 +5,7 @@ import { NoteCardData, getAllNotes, userToken } from "@/app/notes/page";
 import axios from "axios";
 import { Tooltip } from "flowbite-react";
 
-const NoteBody = (note: NoteCardData ,handleGetNotes:any) => {
+const NoteBody = (note: NoteCardData ,getAllNotes:any) => {
   async function deleteNote(noteId: string) {
     const { data } = await axios({
       method: "delete",
@@ -56,7 +56,7 @@ const NoteBody = (note: NoteCardData ,handleGetNotes:any) => {
               className="cursor-pointer hover:text-indigo-900 text-xl "
               onClick={() => {
                 updateNote(note?._id);
-                handleGetNotes()
+                getAllNotes()
               }}
             >
               <FaRegEdit />
@@ -67,7 +67,7 @@ const NoteBody = (note: NoteCardData ,handleGetNotes:any) => {
               className="cursor-pointer hover:text-indigo-900 text-xl "
               onClick={() => {
                 deleteNote(note?._id);
-                handleGetNotes()
+                getAllNotes()
               }}
             >
               <AiFillDelete />

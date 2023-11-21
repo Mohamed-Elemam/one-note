@@ -58,7 +58,7 @@ const handleLogin = async (values: FormValues) => {
       data: values,
     });
     toast.success(data?.message);
-    localStorage.setItem("userToken",data.userToken)
+    window?.localStorage?.setItem("userToken",data.userToken)
     router.push('/notes')
   } catch (error: any) {
     toast.error(error.response.data.message);

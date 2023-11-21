@@ -9,7 +9,7 @@ import { userToken } from "@/app/notes/page";
 
 
 
-const NoteModalBody = ({ handleGetNotes }) => {
+const NoteModalBody = ({ getAllNotes }) => {
 
   async function createNote(values: {}) {
     try {
@@ -26,7 +26,7 @@ const NoteModalBody = ({ handleGetNotes }) => {
       toast.success("done");
 
       if (data.message === "note added successfully") {
-        handleGetNotes();
+        getAllNotes();
       }
     } catch (error: any) {
       console.error(error);
