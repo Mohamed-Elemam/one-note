@@ -1,6 +1,5 @@
 "use client";
 import axios from "axios";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import NoteBody from "../components/NoteBody/NoteBody";
 import jwt from "jsonwebtoken";
@@ -18,10 +17,15 @@ export type NoteCardData = {
   color: string;
 }
 
-export const userToken: string = window?.localStorage?.getItem(
-  "userToken"
-) as string;
-export const decodedToken = jwt.decode(userToken as string);
+let userToken: string = "";
+let decodedToken: any = null;
+
+if (typeof window !== "undefined") {
+  userToken = localStorage?.getItem("userToken") as string;
+  decodedToken = jwt.decode(userToken);
+}
+
+export { userToken, decodedToken };
 
 const Notes = () => {
   const [notes, setNotes] = useState<NoteCardData[]>([]);

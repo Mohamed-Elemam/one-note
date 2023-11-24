@@ -48,7 +48,7 @@ return `bg-${color}-200`
   return (
     <>
       <div
-        className={`block max-w-sm p-6  border border-${note.color}-200 rounded-sm shadow hover:bg-${note.color}-100 dark:bg-${note.color}-800 dark:border-${note.color}-700 dark:hover:bg-${note.color}-700 `+ returnColorClass(note.color)}
+        className={`block max-w-sm p-6  border border-${note.color}-200 rounded-sm shadow hover:!bg-${note.color}-100  `+ returnColorClass(note.color)}
       >
         <p className="mb-2 note-tilte text-gray-900 ">
           {note.title}
