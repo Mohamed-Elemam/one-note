@@ -4,7 +4,7 @@ import "./globals.css";
 import { FaRegSun } from "react-icons/fa";
 import { BsMoonStars } from "react-icons/bs";
 import Link from "next/link";
-import Navbar from "./components/Navbar/Navbar";
+import NavbarComponent from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,9 +22,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
+        <NavbarComponent />
         {children}
-        {/* <Footer /> */}
       </body>
     </html>
   );

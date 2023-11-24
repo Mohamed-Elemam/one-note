@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import ModalBody from "./components/ModalBody/ModalBody";
 import Image from "next/image";
 
 export default function Home() {
@@ -31,13 +30,16 @@ export default function Home() {
             </div>
 
             <div>
-              <Image width={200} height={200} src="../public/images/Notes-pana.svg" alt="taking-notes" />
+              <Image
+                width={500}
+                height={500}
+                src="public\images\Notes-pana.svg"
+                alt="taking-notes"
+              />
             </div>
           </div>
         </div>
       </main>
-
-      {/* <ModalBody/> */}
     </>
   );
 }

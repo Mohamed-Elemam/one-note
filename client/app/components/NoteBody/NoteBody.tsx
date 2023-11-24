@@ -1,12 +1,20 @@
 import React from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
-import { NoteCardData, getAllNotes, userToken } from "@/app/notes/page";
+import { NoteCardData, userToken } from "@/app/notes/page";
 import axios from "axios";
 import { Tooltip } from "flowbite-react";
 
-const NoteBody = (note: NoteCardData ,getAllNotes:any) => {
+type NoteBodyProps = {
+  note: NoteCardData;
+
+  getAllNotes: () => Promise<void>; 
+};
+
+const NoteBody:React.FC<NoteBodyProps> = ({note ,getAllNotes}) => {
+  
   async function deleteNote(noteId: string) {
+    
     const { data } = await axios({
       method: "delete",
       url: "http://localhost:8080/note/?noteId=" + noteId,
@@ -15,9 +23,11 @@ const NoteBody = (note: NoteCardData ,getAllNotes:any) => {
           (process.env.NEXT_PUBLIC_TOKEN_PREFIX as string) + " " + userToken,
       },
     });
-    console.log(data);
+    getAllNotes()
+
   }
 
+  console.log( note) //************************************** */
   async function updateNote(noteId: string) {
     const { data } = await axios({
       method: "put",
@@ -28,25 +38,27 @@ const NoteBody = (note: NoteCardData ,getAllNotes:any) => {
       },
     });
     console.log(data);
+    getAllNotes()
+
   }
+function returnColorClass(color:string){
+return `bg-${color}-200`
+}
 
   return (
     <>
       <div
-        onClick={() => console.log(note._id)}
-        className={`block max-w-sm p-6 bg-${note.color}-200 border border-${note.color}-200 rounded-sm shadow hover:bg-${note.color}-100 dark:bg-${note.color}-800 dark:border-${note.color}-700 dark:hover:bg-${note.color}-700`}
+        className={`block max-w-sm p-6  border border-${note.color}-200 rounded-sm shadow hover:bg-${note.color}-100 dark:bg-${note.color}-800 dark:border-${note.color}-700 dark:hover:bg-${note.color}-700 `+ returnColorClass(note.color)}
       >
-        <h5 className="mb-2 note-tilte text-gray-900 dark:text-white">
+        <p className="mb-2 note-tilte text-gray-900 ">
           {note.title}
-        </h5>
-        <p className=" text-gray-700 dark:text-gray-400 note-desc">
+        </p>
+        <p className=" text-gray-700  note-desc">
           {note.description}
         </p>
         <div className="flex justify-end gap-3 text-sm text-gray-700">
-          <p>{note?.description?.length}</p>
-          {/* note? words count */}
-          <p>{note?.updatedAt.slice(0,10)}</p>
-          {/* <p>09:12PM</p> */}
+          {/* <p>{note?.description?.length}</p> */}
+          <small>{note?.updatedAt.slice(0,10)}</small>
         </div>
         <div className="flex gap-3 justify-end mt-3">
           
@@ -56,7 +68,7 @@ const NoteBody = (note: NoteCardData ,getAllNotes:any) => {
               className="cursor-pointer hover:text-indigo-900 text-xl "
               onClick={() => {
                 updateNote(note?._id);
-                getAllNotes()
+                // getAllNotes()
               }}
             >
               <FaRegEdit />
@@ -67,7 +79,6 @@ const NoteBody = (note: NoteCardData ,getAllNotes:any) => {
               className="cursor-pointer hover:text-indigo-900 text-xl "
               onClick={() => {
                 deleteNote(note?._id);
-                getAllNotes()
               }}
             >
               <AiFillDelete />

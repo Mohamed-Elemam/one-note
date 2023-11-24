@@ -8,9 +8,7 @@ import Loading from "../components/Loading/Loading";
 import { Toaster, toast } from "react-hot-toast";
 import NoteModalBody from "../components/ModalBody/ModalBody";
 
-// const userdara = js
 export type NoteCardData = {
-  getAllNotes:()=>void;
   _id: string;
   title: string;
   description: string;
@@ -18,19 +16,17 @@ export type NoteCardData = {
   createdAt: string;
   updatedAt: string;
   color: string;
-};
-interface handleNotesFn{
-  getAllNotes:()=>void
 }
-export const userToken: string = window?.localStorage?.getItem("userToken") as string;
+
+export const userToken: string = window?.localStorage?.getItem(
+  "userToken"
+) as string;
 export const decodedToken = jwt.decode(userToken as string);
-
-
 
 const Notes = () => {
   const [notes, setNotes] = useState<NoteCardData[]>([]);
 
-   async function getAllNotes() {
+  async function getAllNotes() {
     try {
       const { data } = await axios.get("http://localhost:8080/note", {
         headers: {
@@ -39,7 +35,7 @@ const Notes = () => {
         },
       });
       console.log(12359);
-  
+
       setNotes(data.notes as NoteCardData[]);
     } catch (error: any) {
       console.error("Error fetching notes:", error);
@@ -48,32 +44,25 @@ const Notes = () => {
   }
 
   useEffect(() => {
-    getAllNotes
-  }, [notes]);
+    getAllNotes()
+  }, []);
 
   return (
     <>
       <Toaster />
       <section className="container mx-auto px-5 py-24">
         <div className="justify-end flex p-5 gap-3">
-          <Link
-            href={"/create"}
-            className="inline  focus:outline-none px-4 py-2.5  font-semibold text-white bg-indigo-700 rounded-lg hover:bg-indigo-800"
-          >
-            Create note
-          </Link>
+         <NoteModalBody getAllNotes={getAllNotes} />
         </div>
 
-        {/* <!-- input modal --> */}
 
         <div className="continer my-3 p-10 ">
           {notes?.length ? (
             notes ? (
               <div className="inline-grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-3 gap-3">
-            
                 {notes.map((note: NoteCardData) => (
                   <NoteBody
-                    {...note}
+                    note={note}
                     getAllNotes={getAllNotes}
                     key={note._id}
                   />
@@ -91,7 +80,7 @@ const Notes = () => {
             </div>
           )}
         </div>
-        <NoteModalBody getAllNotes={getAllNotes} />
+      
       </section>
     </>
   );

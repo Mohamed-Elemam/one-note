@@ -5,11 +5,14 @@ import { useState } from "react";
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
 import { toast } from "react-hot-toast";
-import { userToken } from "@/app/notes/page";
+import { NoteCardData, userToken } from "@/app/notes/page";
+
+type NoteModalBodyProps = {
+  getAllNotes: () => Promise<void>; 
+};
 
 
-
-const NoteModalBody = ({ getAllNotes }) => {
+const NoteModalBody = ({ getAllNotes}:NoteModalBodyProps) => {
 
   async function createNote(values: {}) {
     try {
@@ -26,7 +29,7 @@ const NoteModalBody = ({ getAllNotes }) => {
       toast.success("done");
 
       if (data.message === "note added successfully") {
-        getAllNotes();
+        getAllNotes?.();
       }
     } catch (error: any) {
       console.error(error);
@@ -50,15 +53,15 @@ const NoteModalBody = ({ getAllNotes }) => {
 
   return (
     <>
-      <Button onClick={() => setOpenModal(true)}>Take note</Button>
+      <Button className="bg-indigo-700 font-semibold hover:!bg-indigo-800" onClick={() => setOpenModal(true)}>Create note</Button>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header> </Modal.Header>
         <Modal.Body>
           <Formik
             initialValues={initialValues}
             onSubmit={(values) => {
-              console.log(values);
               createNote(values);
+              getAllNotes()
               setOpenModal(false);
             }}
           >
@@ -117,7 +120,7 @@ const NoteModalBody = ({ getAllNotes }) => {
                 <Button
                   color="indigo"
                   className="hover:hover:text-indigo-800"
-                  onClick={() => setOpenModal(false)}
+                  onSubmit={() => setOpenModal(false)}
                 >
                   Cancel
                 </Button>
