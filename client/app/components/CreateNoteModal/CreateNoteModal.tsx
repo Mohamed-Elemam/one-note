@@ -5,14 +5,14 @@ import { useState } from "react";
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
 import { toast } from "react-hot-toast";
-import { NoteCardData, userToken } from "@/app/notes/page";
+import {  userToken } from "@/app/notes/page";
 
-type NoteModalBodyProps = {
+type createNoteModalProps = {
   getAllNotes: () => Promise<void>; 
 };
 
 
-const NoteModalBody = ({ getAllNotes}:NoteModalBodyProps) => {
+const CreateNoteModal = ({ getAllNotes}:createNoteModalProps) => {
 
   async function createNote(values: {}) {
     try {
@@ -85,6 +85,7 @@ const NoteModalBody = ({ getAllNotes}:NoteModalBodyProps) => {
                   Note
                 </label>
                 <Field
+                
                   as="textarea"
                   name="description"
                   cols={30}
@@ -120,7 +121,7 @@ const NoteModalBody = ({ getAllNotes}:NoteModalBodyProps) => {
                 <Button
                   color="indigo"
                   className="hover:hover:text-indigo-800"
-                  onSubmit={() => setOpenModal(false)}
+                  onClick={() => setOpenModal(false)}
                 >
                   Cancel
                 </Button>
@@ -133,4 +134,4 @@ const NoteModalBody = ({ getAllNotes}:NoteModalBodyProps) => {
   );
 };
 
-export default NoteModalBody;
+export default CreateNoteModal;

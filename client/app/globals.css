@@ -11,11 +11,11 @@
 }
 
 .note-title {
-  font-weight: bold;
-  font-size: 32px !important;
+  font-family: "Reenie Beanie", cursive;
+  text-transform: capitalize;
 }
 
 .note-desc {
   font-family: "Reenie Beanie", cursive;
-  font-size: 32px;
+  font-size: 24px;
 }

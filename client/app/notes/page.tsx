@@ -5,7 +5,7 @@ import NoteBody from "../components/NoteBody/NoteBody";
 import jwt from "jsonwebtoken";
 import Loading from "../components/Loading/Loading";
 import { Toaster, toast } from "react-hot-toast";
-import NoteModalBody from "../components/ModalBody/ModalBody";
+import CreateNoteModal from "../components/CreateNoteModal/CreateNoteModal";
 
 export type NoteCardData = {
   _id: string;
@@ -17,15 +17,10 @@ export type NoteCardData = {
   color: string;
 }
 
-let userToken: string = "";
-let decodedToken: any = null;
-
-if (typeof window !== "undefined") {
-  userToken = localStorage?.getItem("userToken") as string;
-  decodedToken = jwt.decode(userToken);
-}
-
-export { userToken, decodedToken };
+export const userToken: string = localStorage?.getItem(
+  "userToken"
+) as string;
+export const decodedToken = jwt.decode(userToken as string);
 
 const Notes = () => {
   const [notes, setNotes] = useState<NoteCardData[]>([]);
@@ -56,14 +51,14 @@ const Notes = () => {
       <Toaster />
       <section className="container mx-auto px-5 py-24">
         <div className="justify-end flex p-5 gap-3">
-         <NoteModalBody getAllNotes={getAllNotes} />
+         <CreateNoteModal getAllNotes={getAllNotes} />
         </div>
 
 
-        <div className="continer my-3 p-10 ">
+        <div className="continer my-3 p-10 mx-auto ">
           {notes?.length ? (
             notes ? (
-              <div className="inline-grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-3 gap-3">
+              <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 gap-3 ">
                 {notes.map((note: NoteCardData) => (
                   <NoteBody
                     note={note}

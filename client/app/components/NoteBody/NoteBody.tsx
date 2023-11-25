@@ -1,20 +1,17 @@
 import React from "react";
-import { FaRegEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 import { NoteCardData, userToken } from "@/app/notes/page";
 import axios from "axios";
 import { Tooltip } from "flowbite-react";
+import UpdateModal from "../UpdateModal/UpdateModal";
 
 type NoteBodyProps = {
   note: NoteCardData;
-
-  getAllNotes: () => Promise<void>; 
+  getAllNotes: () => Promise<void>;
 };
 
-const NoteBody:React.FC<NoteBodyProps> = ({note ,getAllNotes}) => {
-  
+const NoteBody: React.FC<NoteBodyProps> = ({ note, getAllNotes }) => {
   async function deleteNote(noteId: string) {
-    
     const { data } = await axios({
       method: "delete",
       url: "http://localhost:8080/note/?noteId=" + noteId,
@@ -23,67 +20,47 @@ const NoteBody:React.FC<NoteBodyProps> = ({note ,getAllNotes}) => {
           (process.env.NEXT_PUBLIC_TOKEN_PREFIX as string) + " " + userToken,
       },
     });
-    getAllNotes()
-
+    getAllNotes();
   }
 
-  console.log( note) //************************************** */
-  async function updateNote(noteId: string) {
-    const { data } = await axios({
-      method: "put",
-      url: "http://localhost:8080/note/?noteId=" + noteId,
-      headers: {
-        Authorization:
-          (process.env.NEXT_PUBLIC_TOKEN_PREFIX as string) + " " + userToken,
-      },
-    });
-    console.log(data);
-    getAllNotes()
+  function returnColorClass(apiColor: string) {
+    const colors: any = {
+      yellow: "#fef08a",
+      green: "#bbf7d0",
+      purple: "#e9d5ff",
+    };
 
+    return colors[apiColor];
   }
-function returnColorClass(color:string){
-return `bg-${color}-200`
-}
 
   return (
     <>
       <div
-        className={`block max-w-sm p-6  border border-${note.color}-200 rounded-sm shadow hover:!bg-${note.color}-100  `+ returnColorClass(note.color)}
+        style={{ backgroundColor: returnColorClass(note.color) }}
+        className={` w-[15em] h-[15em] p-6 justify-around rounded-sm shadow  mx-auto flex flex-col  `}
       >
-        <p className="mb-2 note-tilte text-gray-900 ">
+        <h2 className=" note-tilte text-gray-900 !text-3xl font-meduim">
           {note.title}
-        </p>
-        <p className=" text-gray-700  note-desc">
-          {note.description}
-        </p>
-        <div className="flex justify-end gap-3 text-sm text-gray-700">
-          {/* <p>{note?.description?.length}</p> */}
-          <small>{note?.updatedAt.slice(0,10)}</small>
-        </div>
-        <div className="flex gap-3 justify-end mt-3">
-          
-          <Tooltip content="Update" placement="bottom">
-            
-            <span
-              className="cursor-pointer hover:text-indigo-900 text-xl "
-              onClick={() => {
-                updateNote(note?._id);
-                // getAllNotes()
-              }}
-            >
-              <FaRegEdit />
-            </span>
-          </Tooltip>
-          <Tooltip content="Delete" placement="bottom">
-            <span
-              className="cursor-pointer hover:text-indigo-900 text-xl "
-              onClick={() => {
-                deleteNote(note?._id);
-              }}
-            >
-              <AiFillDelete />
-            </span>
-          </Tooltip>
+        </h2>
+        <p className=" text-gray-900  note-desc">{note.description}</p>
+
+        <div className="flex justify-between gap-3 text-sm text-gray-800 items-center">
+          <small>{note?.updatedAt.slice(0, 10)}</small>
+          <div className="flex gap-3  ">
+            <Tooltip content="Update" placement="bottom">
+              <UpdateModal getAllNotes={getAllNotes} note={note} />
+            </Tooltip>
+            <Tooltip content="Delete" placement="bottom">
+              <span
+                className="cursor-pointer hover:text-indigo-900 text-xl "
+                onClick={() => {
+                  deleteNote(note?._id);
+                }}
+              >
+                <AiFillDelete />
+              </span>
+            </Tooltip>
+          </div>
         </div>
       </div>
     </>

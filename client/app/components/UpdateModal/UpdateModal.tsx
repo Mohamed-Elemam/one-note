@@ -1,62 +1,65 @@
 "use client";
+import React from "react";
+import { Button, Modal } from "flowbite-react";
+import { useState } from "react";
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React from "react";
-import { userToken } from "../notes/page";
 import { toast } from "react-hot-toast";
+import { NoteCardData, userToken } from "@/app/notes/page";
+import { FaRegEdit } from "react-icons/fa";
 
-const Create = () => {
-  const router = useRouter();
+type updateModalBodyProps = {
+  getAllNotes: () => Promise<void>;
+  note: NoteCardData;
+};
+const UpdateModal: React.FC<updateModalBodyProps> = ({ getAllNotes, note }) => {
+  const [openModal, setOpenModal] = useState(false);
 
-  async function createNote(values: {}) {
-    try {
-      const { data } = await axios({
-        method: "post",
-        url: "http://localhost:8080/note",
-        headers: {
-          Authorization:
-            (process.env.NEXT_PUBLIC_TOKEN_PREFIX as string) + " " + userToken,
-        },
-        data: values,
-      });
-      console.log(data);
-      toast.success("123");
-
-      if (data.message === "note added successfully") {
-        router.push("/notes");
-      }
-    } catch (error:any) {
-      console.error(error);
-      toast.error(error.response.data);
-    }
-  }
+  console.log(note);
   interface FormValues {
     title: string;
     description: string;
-    color: "yellow" | "green" | "purple";
+    color: string;
   }
 
   const initialValues: FormValues = {
-    title: "",
-    description: "",
-    color: "yellow",
+    title: note.title,
+    description: note.description,
+    color: note.color,
   };
 
+  async function updateNote(noteId: string, values: FormValues) {
+    const { data } = await axios({
+      method: "put",
+      url: "http://localhost:8080/note/?noteId=" + noteId,
+      headers: {
+        Authorization:
+          (process.env.NEXT_PUBLIC_TOKEN_PREFIX as string) + " " + userToken,
+      },
+      data: values,
+    });
+    console.log(data);
+    getAllNotes();
+  }
   return (
     <>
-      <section className="container ">
-        <div className=" border  border-gray-200 glass shadow-2xl rounded-lg p-9 w-3/4 mx-auto m-5 ">
-          {/* <div className="flex justify-end cursor-pointer">
-  <button>X</button>
-</div> */}
-
+      <span
+        className="cursor-pointer hover:text-indigo-900 text-xl "
+        onClick={() => {
+          setOpenModal(true);
+        }}
+      >
+        <FaRegEdit />
+      </span>
+      <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
+        <Modal.Header> </Modal.Header>
+        <Modal.Body>
           <Formik
             initialValues={initialValues}
             onSubmit={(values) => {
-              console.log(values);
-              createNote(values);
+              updateNote(note._id, values);
+              getAllNotes();
+              setOpenModal(false);
             }}
           >
             <Form>
@@ -82,7 +85,7 @@ const Create = () => {
                   as="textarea"
                   name="description"
                   cols={30}
-                  rows={10}
+                  rows={9}
                   className="block rounded-lg border resize-none	 border-gray-300 
                 bg-gray-50 text-sm outline-none text-gray-900  ring-blue-400 focus:border-blue-500 focus:ring-2 w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Enter your note here "
@@ -103,32 +106,28 @@ const Create = () => {
                   <option value="purple">Purple</option>
                 </Field>
               </div>
-              <div className="flex gap-3">
-                <button
-                  className="px-5 py-2.5 bg-yellow-300 rounded-lg font-semibold "
+
+              <Modal.Footer>
+                <Button
                   type="submit"
+                  className=" !bg-indigo-700  hover:!bg-indigo-800 "
                 >
-                  save
-                </button>
-                <button className="px-5 py-2.5 bg-yellow-300 rounded-lg font-semibold ">
                   Update
-                </button>
-                <button className="px-5 py-2.5 bg-yellow-300 rounded-lg font-semibold ">
-                  Delete
-                </button>
-                <Link
-                  href={"/notes"}
-                  className="px-5 py-2.5 bg-yellow-300 rounded-lg font-semibold "
+                </Button>
+                <Button
+                  color="indigo"
+                  className="hover:hover:text-indigo-800"
+                  onClick={() => setOpenModal(false)}
                 >
-                  cancel
-                </Link>
-              </div>
+                  Cancel
+                </Button>
+              </Modal.Footer>
             </Form>
           </Formik>
-        </div>
-      </section>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };
 
-export default Create;
+export default UpdateModal;
