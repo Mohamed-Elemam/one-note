@@ -8,14 +8,14 @@ export default function Home() {
     <>
       <main className=" bg-indigo-50 min-h-screen  ">
         <div className="container mx-auto px-5 py-24">
-          <div className="grid md:grid-cols-2 sm:grid-col-1">
+          <div className="grid md:grid-cols-2 sm:grid-cols-1">
             <div className="flex flex-col gap-10 items-start">
               <h1 className="text-7xl font-bold  text-indigo-900">OneNote</h1>
               <div>
-                <p className="text-indigo-900 font-semibold text-2xl">
-                  <span className="text-3xl">&#34;</span>Capturing thoughts, one
-                  note at a time - because great ideas deserve a place to grow.{" "}
-                  <span className="text-3xl">&#34;</span>
+                <p className="text-indigo-900 font-semibold text-xl md:text-2xl">
+                  <span className="text-xl md:text-3xl">&#34;</span>Capturing thoughts, one
+                  note at a time - because great ideas deserve a place to grow.
+                  <span className="text-xl md:text-3xl">&#34;</span>
                 </p>
                 <p className="text-indigo-900 font-semibold text-2xl mt-5">
                   Albert Einstein

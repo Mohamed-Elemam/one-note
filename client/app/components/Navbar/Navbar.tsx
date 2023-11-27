@@ -15,7 +15,7 @@ const NavbarComponent = () => {
   };
   return (
     <>
-      <Navbar rounded>
+      <Navbar fluid className="fixed top-0 w-[100%]">
         <Navbar.Brand href="/" className="items-center space-x-2 rtl:space-x-reverse flex-1">
         
             <span className="text-3xl">

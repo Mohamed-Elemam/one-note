@@ -15,11 +15,9 @@ export type NoteCardData = {
   createdAt: string;
   updatedAt: string;
   color: string;
-}
+};
 
-export const userToken: string = localStorage?.getItem(
-  "userToken"
-) as string;
+export const userToken: string = localStorage?.getItem("userToken") as string;
 export const decodedToken = jwt.decode(userToken as string);
 
 const Notes = () => {
@@ -43,7 +41,7 @@ const Notes = () => {
   }
 
   useEffect(() => {
-    getAllNotes()
+    getAllNotes();
   }, []);
 
   return (
@@ -51,35 +49,31 @@ const Notes = () => {
       <Toaster />
       <section className="container mx-auto px-5 py-24">
         <div className="justify-end flex p-5 gap-3">
-         <CreateNoteModal getAllNotes={getAllNotes} />
+          <CreateNoteModal getAllNotes={getAllNotes} />
         </div>
 
-
         <div className="continer my-3 p-10 mx-auto ">
-          {notes?.length ? (
-            notes ? (
-              <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 gap-3 ">
-                {notes.map((note: NoteCardData) => (
-                  <NoteBody
-                    note={note}
-                    getAllNotes={getAllNotes}
-                    key={note._id}
-                  />
-                ))}
-              </div>
-            ) : (
-              <Loading />
-            )
+          {notes && notes.length ? (
+            <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 gap-3 ">
+              {notes.map((note: NoteCardData) => (
+                <NoteBody
+                  note={note}
+                  getAllNotes={getAllNotes}
+                  key={note._id}
+                />
+              ))}
+            </div>
+          ) : notes ? (
+            <Loading />
           ) : (
             <div className="flex text-indigo-900 text-4xl justify-center items-center text-center font-medium">
               <p>
-                No notes are avaliable. <br /> Start creating new notes right
+                No notes are available. <br /> Start creating new notes right
                 now!
               </p>
             </div>
           )}
         </div>
-      
       </section>
     </>
   );

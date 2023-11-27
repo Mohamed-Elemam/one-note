@@ -44,7 +44,7 @@ const NoteBody: React.FC<NoteBodyProps> = ({ note, getAllNotes }) => {
         </h2>
         <p className=" text-gray-900  note-desc">{note.description}</p>
 
-        <div className="flex justify-between gap-3 text-sm text-gray-800 items-center">
+        <div className="flex justify-between   text-gray-800 items-center">
           <small>{note?.updatedAt.slice(0, 10)}</small>
           <div className="flex gap-3  ">
             <Tooltip content="Update" placement="bottom">
