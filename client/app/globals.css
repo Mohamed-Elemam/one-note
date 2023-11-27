@@ -9,10 +9,13 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
+body{
+  position: relative;
+  padding-top: 50px;
+}
 
 .note-title {
   font-family: "Reenie Beanie", cursive;
-  text-transform: capitalize;
 }
 
 .note-desc {
