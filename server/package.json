@@ -5,11 +5,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start":"node index.js",
+    "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },"engines": {
-    "node": "18.16.1"
+  },
+  "engines": {
+    "node": "20.10.0"
   },
   "keywords": [],
   "author": "",
