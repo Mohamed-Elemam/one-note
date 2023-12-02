@@ -5,34 +5,30 @@ import { useState } from "react";
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
 import { toast } from "react-hot-toast";
-import {  userToken } from "@/app/notes/page";
+import { userToken } from "@/app/notes/page";
 
 type createNoteModalProps = {
-  getAllNotes: () => Promise<void>; 
+  getAllNotes: () => Promise<void>;
 };
 
-
-const CreateNoteModal = ({ getAllNotes}:createNoteModalProps) => {
-
+const CreateNoteModal = ({ getAllNotes }: createNoteModalProps) => {
   async function createNote(values: {}) {
     try {
       const { data } = await axios({
         method: "post",
-        url: "http://localhost:8080/note",
+        url: process.env.NEXT_PUBLIC_PRDUCTION_API_LINK+"note",
         headers: {
           Authorization:
             (process.env.NEXT_PUBLIC_TOKEN_PREFIX as string) + " " + userToken,
         },
         data: values,
       });
-      console.log(data);
       toast.success("done");
 
       if (data.message === "note added successfully") {
         getAllNotes?.();
       }
     } catch (error: any) {
-      console.error(error);
       toast.error(error.response.data);
     }
   }
@@ -53,7 +49,12 @@ const CreateNoteModal = ({ getAllNotes}:createNoteModalProps) => {
 
   return (
     <>
-      <Button className="bg-indigo-700 font-semibold hover:!bg-indigo-800" onClick={() => setOpenModal(true)}>Create note</Button>
+      <Button
+        className="bg-indigo-700 font-semibold hover:!bg-indigo-800"
+        onClick={() => setOpenModal(true)}
+      >
+        Create note
+      </Button>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header> </Modal.Header>
         <Modal.Body>
@@ -61,7 +62,7 @@ const CreateNoteModal = ({ getAllNotes}:createNoteModalProps) => {
             initialValues={initialValues}
             onSubmit={(values) => {
               createNote(values);
-              getAllNotes()
+              getAllNotes();
               setOpenModal(false);
             }}
           >
@@ -85,11 +86,13 @@ const CreateNoteModal = ({ getAllNotes}:createNoteModalProps) => {
                   Note
                 </label>
                 <Field
-                
+                  required
                   as="textarea"
                   name="description"
                   cols={30}
-                  rows={9}
+                  rows={7}
+                  maxLength={10}
+
                   className="block rounded-lg border resize-none	 border-gray-300 
                 bg-gray-50 text-sm outline-none text-gray-900  ring-blue-400 focus:border-blue-500 focus:ring-2 w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Enter your note here "

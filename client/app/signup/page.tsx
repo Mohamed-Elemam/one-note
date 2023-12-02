@@ -32,13 +32,11 @@ const signupSchema = yup.object({
   email: yup.string().trim().email().required("This field is required"),
   password: yup
     .string()
-    .trim()
     .required("password is required")
     .min(8, "Password is too short - should be 8 chars minimum.")
     .matches(/[a-z]/, "Password have to contain Latin letters."),
   cPassword: yup
     .string()
-    .trim()
     .oneOf([yup.ref("password")], "password must match")
     .required("This field is required"),
 });
