@@ -7,6 +7,7 @@ import { Toaster, toast } from "react-hot-toast";
 import * as yup from "yup";
 import { useState } from "react";
 import LoadingButton from "../components/LoadingButton/LoadingButton";
+import { setCookie } from 'cookies-next';
 
 interface FormValues {
   email: string;
@@ -60,10 +61,9 @@ export default function Home() {
         data: values,
       });
       toast.success(data?.message);
-      window?.localStorage?.setItem("userToken", data.userToken);
+      setCookie("userToken", data.userToken);
       router.push("/notes");
     } catch (error: any) {
-      console.log(error)
       toast.error(error.response.data.message);
     } finally {
       setIsLoginLoading(false);
