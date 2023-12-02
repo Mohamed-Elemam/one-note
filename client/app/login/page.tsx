@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Toaster, toast } from "react-hot-toast";
 import * as yup from "yup";
+import { useState } from "react";
+import LoadingButton from "../components/LoadingButton/LoadingButton";
 
 interface FormValues {
   email: string;
@@ -47,19 +49,25 @@ const demoLoginData: FormValues = {
 
 export default function Home() {
   const router = useRouter();
+  const [isLoginLoading, setIsLoginLoading] = useState(false);
+  const [isDemoLoading, setIsDemoLoading] = useState(false);
 
   const handleLogin = async (values: FormValues) => {
     try {
       const { data } = await axios({
         method: "post",
-        url: "http://localhost:8080/user/login",
+        url: process.env.NEXT_PUBLIC_PRDUCTION_API_LINK + "user/login",
         data: values,
       });
       toast.success(data?.message);
       window?.localStorage?.setItem("userToken", data.userToken);
       router.push("/notes");
     } catch (error: any) {
+      console.log(error)
       toast.error(error.response.data.message);
+    } finally {
+      setIsLoginLoading(false);
+      setIsDemoLoading(false);
     }
   };
 
@@ -68,9 +76,11 @@ export default function Home() {
   };
 
   return (
-    <section className="container mt-20  py-6 sm:py-8 lg:py-12 mx-auto max-w-screen-2xl px-4 md:px-8">
-      <Toaster position="top-center"/>
-      <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-8 lg:text-3xl">Login</h2>
+    <section className="container mt-10 mx-auto max-w-screen-2xl px-4 md:px-8">
+      <Toaster position="top-center" />
+      <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-8 lg:text-3xl">
+        Login
+      </h2>
       <Formik
         initialValues={initialValues}
         onSubmit={(values) => {
@@ -113,7 +123,7 @@ export default function Home() {
               />
             </div>
 
-            <LoginButton />
+            {isLoginLoading ? <LoadingButton /> : <LoginButton />}
 
             <div className="relative flex items-center justify-center">
               <span className="absolute inset-x-0 h-px bg-gray-300"></span>
@@ -121,14 +131,19 @@ export default function Home() {
                 OR
               </span>
             </div>
-            <p
-              onClick={() => {
-                handleDemoLogin();
-              }}
-              className=" block cursor-pointer rounded-lg bg-indigo-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-700 focus-visible:ring active:bg-indigo-600 md:text-base"
-            >
-              Demo login
-            </p>
+            {isDemoLoading ? (
+              <LoadingButton />
+            ) : (
+              <button
+                onClick={() => {
+                  setIsDemoLoading(true);
+                  handleDemoLogin();
+                }}
+                className=" block cursor-pointer rounded-lg bg-indigo-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-700 focus-visible:ring active:bg-indigo-600 md:text-base"
+              >
+                Demo login
+              </button>
+            )}
           </div>
           <div className="flex items-center justify-center bg-gray-100 p-4">
             <p className="text-center text-sm text-gray-500">

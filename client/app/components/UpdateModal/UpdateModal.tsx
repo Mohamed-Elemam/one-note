@@ -4,7 +4,7 @@ import { Button, Modal } from "flowbite-react";
 import { useState } from "react";
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
-import { toast } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 import { NoteCardData, userToken } from "@/app/notes/page";
 import { FaRegEdit } from "react-icons/fa";
 
@@ -15,7 +15,6 @@ type updateModalBodyProps = {
 const UpdateModal: React.FC<updateModalBodyProps> = ({ getAllNotes, note }) => {
   const [openModal, setOpenModal] = useState(false);
 
-  console.log(note);
   interface FormValues {
     title: string;
     description: string;
@@ -29,20 +28,27 @@ const UpdateModal: React.FC<updateModalBodyProps> = ({ getAllNotes, note }) => {
   };
 
   async function updateNote(noteId: string, values: FormValues) {
-    const { data } = await axios({
-      method: "put",
-      url: "http://localhost:8080/note/?noteId=" + noteId,
-      headers: {
-        Authorization:
-          (process.env.NEXT_PUBLIC_TOKEN_PREFIX as string) + " " + userToken,
-      },
-      data: values,
-    });
-    console.log(data);
-    getAllNotes();
+    try {
+      const { data } = await axios({
+        method: "put",
+        url: process.env.NEXT_PUBLIC_PRDUCTION_API_LINK+"note/?noteId=" + noteId,
+        headers: {
+          Authorization:
+            (process.env.NEXT_PUBLIC_TOKEN_PREFIX as string) + " " + userToken,
+        },
+        data: values,
+      });
+      if (data.message === "note updated") {
+        toast.success(data.message);
+      }
+      getAllNotes();
+    } catch (error: any) {
+      toast.error(error?.response.data);
+    }
   }
   return (
     <>
+      <Toaster />
       <span
         className="cursor-pointer hover:text-indigo-900 text-xl "
         onClick={() => {
@@ -85,7 +91,8 @@ const UpdateModal: React.FC<updateModalBodyProps> = ({ getAllNotes, note }) => {
                   as="textarea"
                   name="description"
                   cols={30}
-                  rows={9}
+                  rows={7}
+                  required
                   className="block rounded-lg border resize-none	 border-gray-300 
                 bg-gray-50 text-sm outline-none text-gray-900  ring-blue-400 focus:border-blue-500 focus:ring-2 w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Enter your note here "

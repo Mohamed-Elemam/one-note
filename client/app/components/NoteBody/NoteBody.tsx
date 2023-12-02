@@ -4,6 +4,7 @@ import { NoteCardData, userToken } from "@/app/notes/page";
 import axios from "axios";
 import { Tooltip } from "flowbite-react";
 import UpdateModal from "../UpdateModal/UpdateModal";
+import { Toaster, toast } from "react-hot-toast";
 
 type NoteBodyProps = {
   note: NoteCardData;
@@ -12,15 +13,23 @@ type NoteBodyProps = {
 
 const NoteBody: React.FC<NoteBodyProps> = ({ note, getAllNotes }) => {
   async function deleteNote(noteId: string) {
+  try {
     const { data } = await axios({
       method: "delete",
-      url: "http://localhost:8080/note/?noteId=" + noteId,
+      url: process.env.NEXT_PUBLIC_PRDUCTION_API_LINK+"note/?noteId=" + noteId,
       headers: {
         Authorization:
           (process.env.NEXT_PUBLIC_TOKEN_PREFIX as string) + " " + userToken,
       },
     });
+    if(data.message =="note deleted"){
+      toast.success(data.message)
+    }
     getAllNotes();
+  } catch (error:any) {
+
+    toast.error(error?.response.data);
+  }
   }
 
   function returnColorClass(apiColor: string) {
@@ -35,6 +44,7 @@ const NoteBody: React.FC<NoteBodyProps> = ({ note, getAllNotes }) => {
 
   return (
     <>
+    <Toaster/>
       <div
         style={{ backgroundColor: returnColorClass(note.color) }}
         className={` w-[15em] h-[15em] p-6 justify-around rounded-sm shadow  mx-auto flex flex-col  `}
