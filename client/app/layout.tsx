@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { FaRegSun } from "react-icons/fa";
-import { BsMoonStars } from "react-icons/bs";
-import Link from "next/link";
 import NavbarComponent from "./components/Navbar/Navbar";
-import Footer from "./components/Footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
