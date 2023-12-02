@@ -17,7 +17,7 @@ export type NoteCardData = {
   color: string;
 };
 
-export const userToken: any = getCookie('userToken')
+let userToken: any = getCookie('userToken')
 
 const Notes = () => {
   const [notes, setNotes] = useState<NoteCardData[]>([]);

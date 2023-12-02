@@ -5,11 +5,12 @@ import { useState } from "react";
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
 import { toast } from "react-hot-toast";
-import { userToken } from "@/app/notes/page";
+import { getCookie } from "cookies-next";
 
 type createNoteModalProps = {
   getAllNotes: () => Promise<void>;
 };
+let userToken: any = getCookie('userToken')
 
 const CreateNoteModal = ({ getAllNotes }: createNoteModalProps) => {
   async function createNote(values: {}) {

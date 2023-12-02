@@ -7,6 +7,9 @@ import { Field, Form, Formik } from "formik";
 import { Toaster, toast } from "react-hot-toast";
 import { NoteCardData, userToken } from "@/app/notes/page";
 import { FaRegEdit } from "react-icons/fa";
+import { getCookie } from "cookies-next";
+
+let userToken: any = getCookie("userToken");
 
 type updateModalBodyProps = {
   getAllNotes: () => Promise<void>;
@@ -31,7 +34,8 @@ const UpdateModal: React.FC<updateModalBodyProps> = ({ getAllNotes, note }) => {
     try {
       const { data } = await axios({
         method: "put",
-        url: process.env.NEXT_PUBLIC_PRDUCTION_API_LINK+"note/?noteId=" + noteId,
+        url:
+          process.env.NEXT_PUBLIC_PRDUCTION_API_LINK + "note/?noteId=" + noteId,
         headers: {
           Authorization:
             (process.env.NEXT_PUBLIC_TOKEN_PREFIX as string) + " " + userToken,

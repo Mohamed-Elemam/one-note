@@ -1,10 +1,13 @@
 import React from "react";
 import { AiFillDelete } from "react-icons/ai";
-import { NoteCardData, userToken } from "@/app/notes/page";
+import { NoteCardData } from "@/app/notes/page";
 import axios from "axios";
 import { Tooltip } from "flowbite-react";
 import UpdateModal from "../UpdateModal/UpdateModal";
 import { Toaster, toast } from "react-hot-toast";
+import { getCookie } from "cookies-next";
+
+let userToken: any = getCookie('userToken')
 
 type NoteBodyProps = {
   note: NoteCardData;
