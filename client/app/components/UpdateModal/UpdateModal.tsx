@@ -5,7 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
 import { Toaster, toast } from "react-hot-toast";
-import { NoteCardData, userToken } from "@/app/notes/page";
+import { NoteCardData } from "@/app/notes/page";
 import { FaRegEdit } from "react-icons/fa";
 import { getCookie } from "cookies-next";
 
