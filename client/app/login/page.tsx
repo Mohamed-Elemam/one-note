@@ -2,16 +2,13 @@
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik, useFormikContext } from "formik";
 import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import { Toaster, toast } from "react-hot-toast";
 import * as yup from "yup";
 import { useState } from "react";
 import LoadingButton from "../components/LoadingButton/LoadingButton";
 import { getCookie, setCookie } from "cookies-next";
-import Head from "next/head";
 
-
-if (getCookie("userToken") ) redirect("/notes");
 
 interface FormValues {
   email: string;
@@ -52,6 +49,7 @@ const demoLoginData: FormValues = {
   password: process.env.NEXT_PUBLIC_DEMO_PASSWORD as string,
 };
 
+ 
 export default function Home() {
   const router = useRouter();
   const [isLoginLoading, setIsLoginLoading] = useState(false);
@@ -79,12 +77,13 @@ export default function Home() {
     handleLogin(demoLoginData);
   };
 
+  if (getCookie("userToken")) router.push("/notes");
+
+
   return (
     <section className="container mt-10 mx-auto max-w-screen-2xl px-4 md:px-8">
       <Toaster position="top-center" />
-      <Head>
-        <title>Login page - oneNote</title>
-      </Head>
+
       <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-8 lg:text-3xl">
         Login
       </h2>

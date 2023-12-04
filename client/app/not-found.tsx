@@ -1,22 +1,23 @@
 import Head from "next/head";
 import Image from "next/image";
 import React from "react";
+import notFoundImage from "../public/images/not-found.svg"
 
 const notFound = () => {
   return (
     <>
-      <Head>
+      <Head key={'Page not found'}>
         <title>Page not found</title>
       </Head>
-      <div className="flex max-h-[100dvh] gap-2 flex-col items-center justify-center text-center">
+      <div className="flex max-h-[100dvh] gap-3 flex-col items-center justify-center text-center">
         <Image 
-        
-        src="../public/images/not-found.svg"
-        width={400}
-        height={400}
+        className="mt-20"
+        src={notFoundImage}
+        width={350}
+        height={350}
         alt="page not found"/>
-        <h2 className="text-grey-800 text-2xl ">The page you were looking for doesn&rsquo;t exist.</h2>
-        <p>You may have mistyped the address or the page may have moved.</p>
+        <h2 className="text-indigo-800 text-2xl ">The page you were looking for doesn&rsquo;t exist.</h2>
+        <p className="text-xl text-grey-500">You may have mistyped the address or the page may have moved.</p>
       </div>
     </>
   );

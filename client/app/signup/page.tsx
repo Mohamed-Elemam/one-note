@@ -8,9 +8,7 @@ import * as yup from "yup";
 import LoadingButton from "./../components/LoadingButton/LoadingButton";
 import { useState } from "react";
 import { getCookie,  setCookie } from "cookies-next";
-import Head from "next/head";
 
-if (getCookie("userToken") ) redirect("/notes");
 
 interface FormValues {
   userName: string;
@@ -79,13 +77,12 @@ export default function Signup() {
       setIsSignupLoading(false);
     }
   };
+  if (getCookie("userToken")) router.push("/notes");
 
   return (
     <section className="container mt-10 px-4 md:px-8  mx-auto max-w-screen-2xl  ">
       <Toaster position="top-center" />
-      <Head>
-        <title>Sign up page - oneNote</title>
-      </Head>
+      
       <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-8 lg:text-3xl">
         Signup
       </h2>

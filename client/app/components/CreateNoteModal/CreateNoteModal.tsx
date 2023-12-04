@@ -118,7 +118,7 @@ const CreateNoteModal = ({ getAllNotes }: createNoteModalProps) => {
               <Modal.Footer>
                 <Button
                   type="submit"
-                  className=" bg-indigo-700  hover:bg-indigo-800 "
+                  className=" bg-indigo-700 hover:!bg-indigo-800 "
                 >
                   Save
                 </Button>
