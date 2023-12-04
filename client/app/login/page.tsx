@@ -2,12 +2,16 @@
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik, useFormikContext } from "formik";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { Toaster, toast } from "react-hot-toast";
 import * as yup from "yup";
 import { useState } from "react";
 import LoadingButton from "../components/LoadingButton/LoadingButton";
-import { setCookie } from 'cookies-next';
+import { getCookie, setCookie } from "cookies-next";
+import Head from "next/head";
+
+
+if (getCookie("userToken") ) redirect("/notes");
 
 interface FormValues {
   email: string;
@@ -78,6 +82,9 @@ export default function Home() {
   return (
     <section className="container mt-10 mx-auto max-w-screen-2xl px-4 md:px-8">
       <Toaster position="top-center" />
+      <Head>
+        <title>Login page - oneNote</title>
+      </Head>
       <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-8 lg:text-3xl">
         Login
       </h2>
