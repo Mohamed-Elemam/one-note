@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { NoteCardData } from "@/app/notes/page";
 import axios from "axios";
@@ -6,6 +6,7 @@ import { Tooltip } from "flowbite-react";
 import UpdateModal from "../UpdateModal/UpdateModal";
 import { Toaster, toast } from "react-hot-toast";
 import { getCookie } from "cookies-next";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 let userToken: any = getCookie('userToken')
 
@@ -15,8 +16,12 @@ type NoteBodyProps = {
 };
 
 const NoteBody: React.FC<NoteBodyProps> = ({ note, getAllNotes }) => {
+
+const [loading, setLoading] = useState(false)
+
   async function deleteNote(noteId: string) {
   try {
+    setLoading(true)
     const { data } = await axios({
       method: "delete",
       url: process.env.NEXT_PUBLIC_PRDUCTION_API_LINK+"note/?noteId=" + noteId,
@@ -30,7 +35,6 @@ const NoteBody: React.FC<NoteBodyProps> = ({ note, getAllNotes }) => {
     }
     getAllNotes();
   } catch (error:any) {
-
     toast.error(error?.response.data);
   }
   }
@@ -70,7 +74,10 @@ const NoteBody: React.FC<NoteBodyProps> = ({ note, getAllNotes }) => {
                   deleteNote(note?._id);
                 }}
               >
+                {
+                  loading?<LoadingSpinner/>:
                 <AiFillDelete />
+                }
               </span>
             </Tooltip>
           </div>

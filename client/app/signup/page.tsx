@@ -2,12 +2,15 @@
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik, useFormikContext } from "formik";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import * as yup from "yup";
 import LoadingButton from "./../components/LoadingButton/LoadingButton";
 import { useState } from "react";
-import { setCookie } from "cookies-next";
+import { getCookie,  setCookie } from "cookies-next";
+import Head from "next/head";
+
+if (getCookie("userToken") ) redirect("/notes");
 
 interface FormValues {
   userName: string;
@@ -34,7 +37,7 @@ const signupSchema = yup.object({
     .string()
     .required("password is required")
     .min(8, "Password is too short - should be 8 chars minimum.")
-    .matches(/[a-z]/, "Password have to contain Latin letters."),
+    .matches(/^(?=.*[A-Z])(?=.*[.!@#$%^&*])(?=.*[a-z])(?=.*[0-9]){8,}/, "Must contain at least one uppercase letter, one special character (!@#$%^&*), one lowercase letter and one number"),
   cPassword: yup
     .string()
     .oneOf([yup.ref("password")], "password must match")
@@ -67,19 +70,22 @@ export default function Signup() {
         url: process.env.NEXT_PUBLIC_PRDUCTION_API_LINK + "user/signUp",
         data: values,
       });
-      setCookie('userToken', data.userToken)
+      setCookie("userToken", data.userToken);
       toast.success(data?.message);
       router.push("/notes");
     } catch (error: any) {
       toast.error(error.response.data.message);
     } finally {
-      setIsSignupLoading(false)
+      setIsSignupLoading(false);
     }
   };
 
   return (
     <section className="container mt-10 px-4 md:px-8  mx-auto max-w-screen-2xl  ">
       <Toaster position="top-center" />
+      <Head>
+        <title>Sign up page - oneNote</title>
+      </Head>
       <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-8 lg:text-3xl">
         Signup
       </h2>
@@ -167,7 +173,7 @@ export default function Signup() {
           </div>
           <div className="flex items-center justify-center bg-gray-100 p-4">
             <p className="text-center text-sm text-gray-500">
-              Do you have already an account ? 
+              Do you have already an account ?
               <Link href="/login" className="text-blue-400 underline">
                 Log in
               </Link>
