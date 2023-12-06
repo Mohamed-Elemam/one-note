@@ -49,7 +49,6 @@ const demoLoginData: FormValues = {
   password: process.env.NEXT_PUBLIC_DEMO_PASSWORD as string,
 };
 
- 
 export default function Home() {
   const router = useRouter();
   const [isLoginLoading, setIsLoginLoading] = useState(false);
@@ -81,7 +80,7 @@ export default function Home() {
 
 
   return (
-    <section className="container mt-10 mx-auto max-w-screen-2xl px-4 md:px-8">
+    <section className="container mt-10 mx-auto max-w-screen-2xl px-4 md:px-8 padding-top">
       <Toaster position="top-center" />
 
       <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-8 lg:text-3xl">

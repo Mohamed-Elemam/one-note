@@ -2,13 +2,12 @@
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik, useFormikContext } from "formik";
 import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import * as yup from "yup";
 import LoadingButton from "./../components/LoadingButton/LoadingButton";
 import { useState } from "react";
-import { getCookie,  setCookie } from "cookies-next";
-
+import { getCookie, setCookie } from "cookies-next";
 
 interface FormValues {
   userName: string;
@@ -35,7 +34,10 @@ const signupSchema = yup.object({
     .string()
     .required("password is required")
     .min(8, "Password is too short - should be 8 chars minimum.")
-    .matches(/^(?=.*[A-Z])(?=.*[.!@#$%^&*])(?=.*[a-z])(?=.*[0-9]){8,}/, "Must contain at least one uppercase letter, one special character (!@#$%^&*), one lowercase letter and one number"),
+    .matches(
+      /^(?=.*[A-Z])(?=.*[.!@#$%^&*])(?=.*[a-z])(?=.*[0-9]){8,}/,
+      "Must contain at least one uppercase letter, one special character (!@#$%^&*), one lowercase letter and one number"
+    ),
   cPassword: yup
     .string()
     .oneOf([yup.ref("password")], "password must match")
@@ -57,6 +59,7 @@ const SignupButton = () => {
   );
 };
 
+ 
 export default function Signup() {
   const router = useRouter();
   const [isSignupLoading, setIsSignupLoading] = useState(false);
@@ -80,9 +83,9 @@ export default function Signup() {
   if (getCookie("userToken")) router.push("/notes");
 
   return (
-    <section className="container mt-10 px-4 md:px-8  mx-auto max-w-screen-2xl  ">
+    <section className="container mt-10 px-4 md:px-8  mx-auto max-w-screen-2xl padding-top">
       <Toaster position="top-center" />
-      
+
       <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-8 lg:text-3xl">
         Signup
       </h2>

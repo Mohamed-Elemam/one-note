@@ -7,7 +7,6 @@ import { Toaster, toast } from "react-hot-toast";
 import CreateNoteModal from "../components/CreateNoteModal/CreateNoteModal";
 import { getCookie  } from 'cookies-next';
 import { redirect } from 'next/navigation'
-import Head from "next/head";
 
 export type NoteCardData = {
   _id: string;
@@ -47,13 +46,14 @@ const Notes = () => {
     getAllNotes();
   }, []);
 
+    
   return (
     <>
       <Toaster />
-      <section className="container mx-auto px-5 py-24">
       <Head>
         <title>Notes Page - oneNote</title>
       </Head>
+      <section className="container mx-auto px-5 py-24 padding-top">
         <div className="justify-end flex p-5 gap-3">
           <CreateNoteModal getAllNotes={getAllNotes} />
         </div>
