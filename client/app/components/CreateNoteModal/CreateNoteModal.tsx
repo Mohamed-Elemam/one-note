@@ -10,14 +10,14 @@ import { getCookie } from "cookies-next";
 type createNoteModalProps = {
   getAllNotes: () => Promise<void>;
 };
-let userToken: any = getCookie('userToken')
+let userToken: any = getCookie("userToken");
 
 const CreateNoteModal = ({ getAllNotes }: createNoteModalProps) => {
   async function createNote(values: {}) {
     try {
       const { data } = await axios({
         method: "post",
-        url: process.env.NEXT_PUBLIC_PRDUCTION_API_LINK+"note",
+        url: process.env.NEXT_PUBLIC_PRDUCTION_API_LINK + "note",
         headers: {
           Authorization:
             (process.env.NEXT_PUBLIC_TOKEN_PREFIX as string) + " " + userToken,
@@ -76,6 +76,7 @@ const CreateNoteModal = ({ getAllNotes }: createNoteModalProps) => {
                   required
                   type="text"
                   name="title"
+                  // maxLength={}
                   className="block rounded-lg border border-gray-300 
                 bg-gray-50 text-sm outline-none text-gray-900  ring-blue-400 focus:border-blue-500 focus:ring-2 w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Enter note tilte"
@@ -92,12 +93,15 @@ const CreateNoteModal = ({ getAllNotes }: createNoteModalProps) => {
                   name="description"
                   cols={30}
                   rows={7}
-                  maxLength={10}
-
-                  className="block rounded-lg border resize-none	 border-gray-300 
+                  className="block rounded-lg border resize-none border-gray-300 
                 bg-gray-50 text-sm outline-none text-gray-900  ring-blue-400 focus:border-blue-500 focus:ring-2 w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Enter your note here "
                 ></Field>
+                {/* <div>
+                  <p className="text-left text-red-600">
+
+                  </p>
+                </div> */}
               </div>
 
               <div className="mb-6">
