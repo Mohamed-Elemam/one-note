@@ -50,9 +50,7 @@ const Notes = () => {
   return (
     <>
       <Toaster />
-      <Head>
-        <title>Notes Page - oneNote</title>
-      </Head>
+      
       <section className="container mx-auto px-5 py-24 padding-top">
         <div className="justify-end flex p-5 gap-3">
           <CreateNoteModal getAllNotes={getAllNotes} />
@@ -62,7 +60,7 @@ const Notes = () => {
           {loading ? (
             <LoadingSpinner />
           ) : notes && notes.length ? (
-            <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 gap-3 ">
+            <div className="flex flex-wrap gap-3 justify-center ">
               {notes.map((note: NoteCardData) => (
                 <NoteBody
                   note={note}
