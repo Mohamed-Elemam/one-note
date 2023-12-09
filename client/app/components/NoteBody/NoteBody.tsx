@@ -55,12 +55,13 @@ const NoteBody: React.FC<NoteBodyProps> = ({ note, getAllNotes }) => {
       <Toaster />
       <div
         style={{ backgroundColor: returnColorClass(note.color) }}
-        className={` w-[15em] min-h-[15em] p-6 justify-around rounded-sm shadow flex flex-col  `}
+        className={` w-[15em] min-h-[15em] p-6 justify-around rounded-sm shadow flex flex-col self-start `}
       >
         <h2 className=" note-tilte text-gray-900 !text-3xl font-meduim ">
           {note.title}
         </h2>
-        <p className=" text-gray-900  note-desc">{note.description}</p>
+
+        <p className=" text-gray-900 break-all note-desc">{note.description}</p>
 
         <div className="flex justify-between   text-gray-800 items-center ">
           <small>{note?.updatedAt.slice(0, 10)}</small>

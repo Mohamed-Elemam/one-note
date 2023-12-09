@@ -28,7 +28,9 @@ const Notes = () => {
   async function getAllNotes() {
     try {
       setLoading(true);
-      const { data } = await axios.get(process.env.NEXT_PUBLIC_PRDUCTION_API_LINK+"note", {
+      const { data } = await 
+      axios.get(process.env.NEXT_PUBLIC_PRDUCTION_API_LINK+"note", 
+      {
         headers: {
           Authorization:
             (process.env.NEXT_PUBLIC_TOKEN_PREFIX as string) + " " + userToken,
@@ -60,7 +62,7 @@ const Notes = () => {
           {loading ? (
             <LoadingSpinner />
           ) : notes && notes.length ? (
-            <div className="flex flex-wrap gap-3 justify-center ">
+            <div className="flex flex-wrap gap-3  ">
               {notes.map((note: NoteCardData) => (
                 <NoteBody
                   note={note}
@@ -70,11 +72,12 @@ const Notes = () => {
               ))}
             </div>
           ) : (
-            <div className="flex text-indigo-900 text-4xl justify-center items-center text-center font-medium">
-              <p>
+            <div className="flex sm:text-[30px] text-indigo-900 md:text-4xl justify-center items-center text-center flex-col gap-3 font-medium">
+              <p className="text-balance">
                 No notes are available. <br /> Start creating new notes right
                 now!
               </p>
+          <CreateNoteModal getAllNotes={getAllNotes} />
             </div>
           )}
         </div>

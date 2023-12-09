@@ -50,6 +50,20 @@ const UpdateModal: React.FC<updateModalBodyProps> = ({ getAllNotes, note }) => {
       toast.error(error?.response.data);
     }
   }
+
+  const [titleCount, setTitleCount] = useState(50 - note?.title?.length);
+  const [descriptionCount, setDescriptionCount] = useState(
+    200 - note?.description?.length
+  );
+
+  const updateTitleCount = (value: string) => {
+    setTitleCount(50 - value.length);
+  };
+
+  const updateDescriptionCount = (value: string) => {
+    setDescriptionCount(200 - value.length);
+  };
+
   return (
     <>
       <Toaster />
@@ -62,7 +76,7 @@ const UpdateModal: React.FC<updateModalBodyProps> = ({ getAllNotes, note }) => {
         <FaRegEdit />
       </span>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Header> </Modal.Header>
+        <Modal.Header > </Modal.Header>
         <Modal.Body>
           <Formik
             initialValues={initialValues}
@@ -81,10 +95,21 @@ const UpdateModal: React.FC<updateModalBodyProps> = ({ getAllNotes, note }) => {
                   required
                   type="text"
                   name="title"
+                  maxLength={50}
+                  onKeyUp={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                    updateTitleCount(e.target.value);
+                  }}
                   className="block rounded-lg border border-gray-300 
                 bg-gray-50 text-sm outline-none text-gray-900  ring-blue-400 focus:border-blue-500 focus:ring-2 w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Enter note tilte"
                 />
+                <p
+                  className={`text-right  px-3 ${
+                    titleCount <= 0 ? "text-red-600" : "text-green-600"
+                  }`}
+                >
+                  {titleCount}
+                </p>
               </div>
 
               <div className="mb-6">
@@ -95,12 +120,23 @@ const UpdateModal: React.FC<updateModalBodyProps> = ({ getAllNotes, note }) => {
                   as="textarea"
                   name="description"
                   cols={30}
-                  rows={7}
+                  rows={6}
+                  maxLength={200}
+                  onKeyUp={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                    updateDescriptionCount(e.target.value);
+                  }}
                   required
                   className="block rounded-lg border resize-none	 border-gray-300 
                 bg-gray-50 text-sm outline-none text-gray-900  ring-blue-400 focus:border-blue-500 focus:ring-2 w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Enter your note here "
                 ></Field>
+                <p
+                  className={`text-right px-3 ${
+                    descriptionCount <= 0 ? "text-red-600" : "text-green-600"
+                  }`}
+                >
+                  {descriptionCount}
+                </p>
               </div>
 
               <div className="mb-6">

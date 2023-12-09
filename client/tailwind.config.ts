@@ -11,7 +11,11 @@ const config: Config = {
     require("flowbite/plugin")
   ],
   theme: {
- 
+ extend:{
+  textWrap: {
+    'balance': 'balance',
+  },
+ }
   },
 };
 export default config;
