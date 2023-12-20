@@ -14,21 +14,7 @@ const userSchema = new Schema(
     },
     cPassword: {
       type: String,
-    },
-  
-    isOnline: {
-      type: String,
-      enum: { values: [true, false] },
-    },
-    isDeleted: {
-      type: String,
-      default: false,
-    },
-    isConfirmed: {
-      type: Boolean,
-      default: false,
-    },
-   
+    },  
   },
   {
     timestamps: true,
