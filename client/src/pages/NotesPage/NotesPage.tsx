@@ -19,10 +19,10 @@ export type NoteCardData = {
 };
 
 const Notes = () => {
-  const navigate = useNavigate();
   const userToken: string = Cookies.get("userToken") as string;
-  //
-  !Cookies.get("userToken") && navigate("/login");
+  console.log(userToken);
+  console.log(import.meta.env.VITE_TOKEN_PREFIX);
+
   const [notes, setNotes] = useState<NoteCardData[]>([]);
   const [loading, setLoading] = useState(false);
 

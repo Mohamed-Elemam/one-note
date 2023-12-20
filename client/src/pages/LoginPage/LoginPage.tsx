@@ -76,7 +76,6 @@ export default function LoginPage() {
   const handleDemoLogin = () => {
     handleLogin(demoLoginData);
   };
-  if (Cookies.get("userToken")) navigate("/notes");
 
   return (
     <>

@@ -18,8 +18,9 @@ const CreateNoteModal = ({ getAllNotes }: createNoteModalProps) => {
         method: "post",
         url: import.meta.env.VITE_PRODUCTION_API_LINK + "note",
         headers: {
-          Authorization:
-            (import.meta.env.VITE_TOKEN_PREFIX as string) + " " + userToken,
+          Authorization: `${
+            import.meta.env.VITE_TOKEN_PREFIX as string
+          } ${userToken}`,
         },
 
         data: values,

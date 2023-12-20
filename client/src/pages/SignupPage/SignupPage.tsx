@@ -81,7 +81,6 @@ export default function Signup() {
       setIsSignupLoading(false);
     }
   };
-  if (Cookies.get("userToken")) navigate("/notes");
 
   return (
     <>
