@@ -17,19 +17,17 @@ export const signUp = async (req, res, next) => {
       userName,
       email,
       password: hashedPassword,
-      isDeleted: false,
-      isOnline: false,
     });
-    await userInstance.save();
+    const savedUser = await userInstance.save();
 
     const userToken = jwt.sign(
-      { email, userName },
+      { email, userName, _id: savedUser._id },
       process.env.SIGN_IN_TOKEN_SECRET
     );
 
     res.status(200).json({ message: "Done", userInstance, userToken });
   } else {
-    return res.status(400).json({ message: "passwords dont match" });
+    return res.status(400).json({ message: "passwords doesnt match" });
   }
 };
 
@@ -50,8 +48,6 @@ export const login = async (req, res, next) => {
     return res.status(400).json({ message: "Invalid login credentials" });
   }
 
-  user.isOnline = true;
-  user.isDeleted = false;
   user = await user.save();
 
   const userToken = jwt.sign(

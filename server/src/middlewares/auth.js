@@ -16,20 +16,21 @@ export const auth = async (req, res, next) => {
     return res.status(400).json({ message: "Invalid token" });
   }
   try {
-    const decodedToken = jwt.verify(userToken, process.env.SIGN_IN_TOKEN_SECRET);
-      if (!decodedToken || !decodedToken._id) {
-        return res.status(400).json({ message: "Invalid token" });
-      }
-      
-      const isUserExist = await userModel.findById(decodedToken._id);
-      if (!isUserExist) {
-        return res.status(400).json({ message: "Invalid login credentials" });
-      }
-      req.authUser = isUserExist;
-      next();
+    const decodedToken = jwt.verify(
+      userToken,
+      process.env.SIGN_IN_TOKEN_SECRET
+    );
+    if (!decodedToken || !decodedToken._id) {
+      return res.status(400).json({ message: "Invalid token" });
+    }
+
+    const isUserExist = await userModel.findById(decodedToken._id);
+    if (!isUserExist) {
+      return res.status(400).json({ message: "Invalid login credentials" });
+    }
+    req.authUser = isUserExist;
+    next();
   } catch (error) {
     return res.status(400).json({ message: "Invalid token" });
-    
   }
- 
 };
