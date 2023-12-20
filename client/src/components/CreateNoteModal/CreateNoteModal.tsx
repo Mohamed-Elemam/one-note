@@ -16,11 +16,10 @@ const CreateNoteModal = ({ getAllNotes }: createNoteModalProps) => {
     try {
       const { data } = await axios({
         method: "post",
-        url: import.meta.env.VITE_PRODUCTION_API_LINK + "note",
+        url: `${import.meta.env.VITE_PRODUCTION_API_LINK}note`,
         headers: {
-          Authorization: `${
-            import.meta.env.VITE_TOKEN_PREFIX as string
-          } ${userToken}`,
+          Authorization:
+            (import.meta.env.VITE_TOKEN_PREFIX as string) + " " + userToken,
         },
 
         data: values,

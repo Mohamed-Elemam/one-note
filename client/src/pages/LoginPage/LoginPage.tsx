@@ -12,7 +12,6 @@ interface FormValues {
   email: string;
   password: string;
 }
-
 const initialValues: FormValues = {
   email: "",
   password: "",
@@ -24,7 +23,10 @@ const loginSchema = yup.object({
     .string()
     .required("password is required")
     .min(8, "Password is too short - should be 8 chars minimum.")
-    .matches(/[a-z]/, "Password can only contain Latin letters."),
+    .matches(
+      /^(?=.*[A-Z])(?=.*[.!@#$%^&*])(?=.*[a-z])(?=.*[0-9]){8,}/,
+      "Must contain at least one uppercase letter, one special character (!@#$%^&*), one lowercase letter and one number"
+    ),
 });
 
 const LoginButton = () => {
@@ -60,10 +62,11 @@ export default function LoginPage() {
         data: values,
       });
       toast.success(data?.message);
-      Cookies.set("userToken", data?.userToken);
-
+      console.log(data);
+      Cookies.set("userToken", data.userToken);
       navigate("/notes");
     } catch (error: unknown) {
+      console.log(error);
       if (error instanceof AxiosError) {
         toast.error(error?.response?.data?.message);
       }

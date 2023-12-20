@@ -6,7 +6,6 @@ import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import NoteBody from "../../components/NoteBody/NoteBody";
 import { Helmet } from "react-helmet";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
 
 export type NoteCardData = {
   _id: string;
@@ -18,11 +17,8 @@ export type NoteCardData = {
   color: string;
 };
 
+const userToken: string = Cookies.get("userToken") as string;
 const Notes = () => {
-  const userToken: string = Cookies.get("userToken") as string;
-  console.log(userToken);
-  console.log(import.meta.env.VITE_TOKEN_PREFIX);
-
   const [notes, setNotes] = useState<NoteCardData[]>([]);
   const [loading, setLoading] = useState(false);
 
