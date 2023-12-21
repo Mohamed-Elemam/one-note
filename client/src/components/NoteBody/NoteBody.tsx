@@ -5,16 +5,18 @@ import { Tooltip } from "flowbite-react";
 import UpdateModal from "../UpdateModal/UpdateModal";
 import { Toaster, toast } from "react-hot-toast";
 import { NoteCardData } from "../../pages/NotesPage/NotesPage";
-import Cookies from "js-cookie";
-
-const userToken: string = Cookies.get("userToken") as string;
 
 type NoteBodyProps = {
   note: NoteCardData;
+  userToken: string;
   getAllNotes: () => Promise<void>;
 };
 
-const NoteBody: React.FC<NoteBodyProps> = ({ note, getAllNotes }) => {
+const NoteBody: React.FC<NoteBodyProps> = ({
+  note,
+  getAllNotes,
+  userToken,
+}) => {
   const [loading, setLoading] = useState(false);
 
   async function deleteNote(noteId: string) {
@@ -71,7 +73,11 @@ const NoteBody: React.FC<NoteBodyProps> = ({ note, getAllNotes }) => {
           <small>{note?.updatedAt.slice(0, 10)}</small>
           <div className="flex gap-3 items-center">
             <Tooltip content="Update" placement="bottom">
-              <UpdateModal getAllNotes={getAllNotes} note={note} />
+              <UpdateModal
+                getAllNotes={getAllNotes}
+                userToken={userToken}
+                note={note}
+              />
             </Tooltip>
             <Tooltip content="Delete" placement="bottom">
               <span className="cursor-pointer hover:text-indigo-900 text-xl ">

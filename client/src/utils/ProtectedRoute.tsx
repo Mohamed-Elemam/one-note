@@ -1,9 +1,15 @@
-import { Navigate, Outlet } from "react-router-dom";
-import Cookies from "js-cookie";
+import { Navigate } from "react-router-dom";
+import { ReactNode } from "react";
 
-export const ProtectedRoute = () => {
-  if (Cookies.get("userToken") === undefined) {
+type ProtectedRouteProps = {
+  children?: ReactNode;
+};
+
+const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+  if (!sessionStorage.getItem("userToken")) {
     return <Navigate to="/login" />;
   }
-  return <Outlet />;
+  return <>{children}</>;
 };
+
+export default ProtectedRoute;

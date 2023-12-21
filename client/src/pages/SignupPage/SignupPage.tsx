@@ -7,7 +7,6 @@ import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 interface FormValues {
   userName: string;
@@ -70,11 +69,12 @@ export default function Signup() {
         url: import.meta.env.VITE_PRODUCTION_API_LINK + "user/signUp",
         data: values,
       });
-      Cookies.set("userToken", data.userToken);
+      sessionStorage.setItem("userToken", data?.userToken);
       toast.success(data?.message);
       navigate("/notes");
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
+        console.log(error);
         toast.error(error?.response?.data?.message);
       }
     } finally {

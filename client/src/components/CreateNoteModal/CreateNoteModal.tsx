@@ -4,14 +4,13 @@ import { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { Field, Form, Formik } from "formik";
 import { toast } from "react-hot-toast";
-import Cookies from "js-cookie";
 
 type createNoteModalProps = {
   getAllNotes: () => Promise<void>;
+  userToken: string;
 };
-const userToken: string = Cookies.get("userToken") as string;
 
-const CreateNoteModal = ({ getAllNotes }: createNoteModalProps) => {
+const CreateNoteModal = ({ getAllNotes, userToken }: createNoteModalProps) => {
   async function createNote(values: object) {
     try {
       const { data } = await axios({
@@ -35,6 +34,7 @@ const CreateNoteModal = ({ getAllNotes }: createNoteModalProps) => {
       }
     }
   }
+  console.log(userToken);
 
   interface FormValues {
     title: string;

@@ -6,17 +6,18 @@ import { Field, Form, Formik } from "formik";
 import { Toaster, toast } from "react-hot-toast";
 import { FaRegEdit } from "react-icons/fa";
 import { NoteCardData } from "../../pages/NotesPage/NotesPage";
-import Cookies from "js-cookie";
-
-const userToken: string = Cookies.get("userToken") as string;
 
 type updateModalBodyProps = {
   getAllNotes: () => Promise<void>;
+  userToken: string;
   note: NoteCardData;
 };
-const UpdateModal: React.FC<updateModalBodyProps> = ({ getAllNotes, note }) => {
+const UpdateModal: React.FC<updateModalBodyProps> = ({
+  getAllNotes,
+  note,
+  userToken,
+}) => {
   const [openModal, setOpenModal] = useState(false);
-
   interface FormValues {
     title: string;
     description: string;

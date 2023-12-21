@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Cookies from "js-cookie";
 
 export default function Home() {
   return (
@@ -11,12 +10,12 @@ export default function Home() {
           </h1>
 
           <p className="mb-8 font-medium leading-relaxed text-gray-700 text-xl md:mb-12 xl:text-lg">
-            All your Capturing thoughts, simple note at a time because great
-            ideas deserve a place to grow
+            All your Capturing thoughts, one note at time because great ideas
+            deserve a place to grow
           </p>
 
           <div className=" w-full ">
-            {Cookies.get("userToken") ? (
+            {sessionStorage.getItem("userToken") ? (
               <Link
                 to="/notes"
                 className="inline-block rounded-lg bg-indigo-700 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-800 focus-visible:ring active:bg-indigo-700 md:text-base"

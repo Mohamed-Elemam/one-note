@@ -1,12 +1,11 @@
 import { FcViewDetails } from "react-icons/fc";
 import { Navbar } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 const NavbarComponent = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
-    Cookies.remove("userToken");
+    sessionStorage.removeItem("userToken");
     navigate("/");
   };
   return (
@@ -27,10 +26,10 @@ const NavbarComponent = () => {
         </div>
         <Navbar.Collapse className="items-start">
           <div>
-            {Cookies.get("userToken") ? (
+            {sessionStorage.getItem("userToken") ? (
               <Link
                 to="/"
-                className=" rounded-lg  px-4 py-2 border bg-transparent border-indigo-800 hover:bg-indigo-800 focus:bg-indigo-900 transition-all hover:text-white  focus:outline-none text-base mt-4 md:mt-0"
+                className=" rounded-lg  px-4 py-2 border bg-transparent border-indigo-800 hover:bg-indigo-800 focus:ring-blue-700 focus:ring transition-all hover:text-white  focus:outline-none text-base mt-4 md:mt-0"
                 onClick={handleLogout}
               >
                 Log out
@@ -39,7 +38,7 @@ const NavbarComponent = () => {
               <>
                 <Link
                   to="/login"
-                  className=" rounded-lg  px-4 py-2 border bg-transparent border-indigo-800 hover:bg-indigo-800 focus:bg-indigo-900 transition-all hover:text-white font-semibold focus:outline-none text-base mt-4 md:mt-0"
+                  className=" rounded-lg  px-4 py-2 border bg-transparent border-indigo-800 hover:bg-indigo-800 focus:ring-blue-700 focus:ring transition-all hover:text-white font-semibold focus:outline-none text-base mt-4 md:mt-0"
                 >
                   Log in
                 </Link>

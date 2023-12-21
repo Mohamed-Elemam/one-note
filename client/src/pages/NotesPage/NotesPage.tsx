@@ -5,7 +5,6 @@ import CreateNoteModal from "../../components/CreateNoteModal/CreateNoteModal";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import NoteBody from "../../components/NoteBody/NoteBody";
 import { Helmet } from "react-helmet";
-import Cookies from "js-cookie";
 
 export type NoteCardData = {
   _id: string;
@@ -17,12 +16,15 @@ export type NoteCardData = {
   color: string;
 };
 
-const userToken: string = Cookies.get("userToken") as string;
+const handleToken = () => sessionStorage.getItem("userToken") || "";
+
 const Notes = () => {
   const [notes, setNotes] = useState<NoteCardData[]>([]);
   const [loading, setLoading] = useState(false);
+  const [userToken, setUserToken] = useState<string>(handleToken());
 
   async function getAllNotes() {
+    handleToken();
     try {
       const { data } = await axios.get(
         import.meta.env.VITE_PRODUCTION_API_LINK + "note",
@@ -58,7 +60,7 @@ const Notes = () => {
       <Toaster />
       <section className="container mx-auto px-5 py-24 padding-top">
         <div className="justify-end flex p-5 gap-3">
-          <CreateNoteModal getAllNotes={getAllNotes} />
+          <CreateNoteModal userToken={userToken} getAllNotes={getAllNotes} />
         </div>
 
         <div className="container my-3 p-10 mx-auto ">
@@ -69,6 +71,7 @@ const Notes = () => {
                   note={note}
                   getAllNotes={getAllNotes}
                   key={note._id}
+                  userToken={userToken}
                 />
               ))}
             </div>
@@ -78,7 +81,10 @@ const Notes = () => {
                 No notes are available. <br /> Start creating new notes right
                 now!
               </p>
-              <CreateNoteModal getAllNotes={getAllNotes} />
+              <CreateNoteModal
+                getAllNotes={getAllNotes}
+                userToken={userToken}
+              />
             </div>
           )}
         </div>

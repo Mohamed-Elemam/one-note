@@ -6,7 +6,6 @@ import { useState } from "react";
 import LoadingButton from "../../components/LoadingButton/LoadingButton";
 import { Helmet } from "react-helmet";
 import { Link, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 interface FormValues {
   email: string;
@@ -62,11 +61,9 @@ export default function LoginPage() {
         data: values,
       });
       toast.success(data?.message);
-      console.log(data);
-      Cookies.set("userToken", data.userToken);
+      sessionStorage.setItem("userToken", data?.userToken);
       navigate("/notes");
     } catch (error: unknown) {
-      console.log(error);
       if (error instanceof AxiosError) {
         toast.error(error?.response?.data?.message);
       }
@@ -80,6 +77,9 @@ export default function LoginPage() {
     handleLogin(demoLoginData);
   };
 
+  if (sessionStorage.getItem("userToken")) {
+    navigate("/notes");
+  }
   return (
     <>
       <Helmet>
