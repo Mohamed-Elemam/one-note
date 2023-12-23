@@ -21,7 +21,7 @@ const handleToken = () => sessionStorage.getItem("userToken") || "";
 const Notes = () => {
   const [notes, setNotes] = useState<NoteCardData[]>([]);
   const [loading, setLoading] = useState(false);
-  const [userToken, setUserToken] = useState<string>(handleToken());
+  const [userToken] = useState<string>(handleToken());
 
   async function getAllNotes() {
     handleToken();
