@@ -1,10 +1,11 @@
 import axios, { AxiosError } from "axios";
 import { Toaster, toast } from "react-hot-toast";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import CreateNoteModal from "../../components/CreateNoteModal/CreateNoteModal";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import NoteBody from "../../components/NoteBody/NoteBody";
 import { Helmet } from "react-helmet";
+import { AuthContext } from "../../context/AuthContext";
 
 export type NoteCardData = {
   _id: string;
@@ -16,15 +17,12 @@ export type NoteCardData = {
   color: string;
 };
 
-const handleToken = () => sessionStorage.getItem("userToken") || "";
-
 const Notes = () => {
   const [notes, setNotes] = useState<NoteCardData[]>([]);
   const [loading, setLoading] = useState(false);
-  const [userToken] = useState<string>(handleToken());
+  const { userToken } = useContext(AuthContext);
 
   async function getAllNotes() {
-    handleToken();
     try {
       const { data } = await axios.get(
         import.meta.env.VITE_PRODUCTION_API_LINK + "note",
@@ -60,7 +58,7 @@ const Notes = () => {
       <Toaster />
       <section className="container mx-auto px-5 py-24 padding-top">
         <div className="justify-end flex p-5 gap-3">
-          <CreateNoteModal userToken={userToken} getAllNotes={getAllNotes} />
+          <CreateNoteModal getAllNotes={getAllNotes} />
         </div>
 
         <div className="container my-3 p-10 mx-auto ">
@@ -71,7 +69,6 @@ const Notes = () => {
                   note={note}
                   getAllNotes={getAllNotes}
                   key={note._id}
-                  userToken={userToken}
                 />
               ))}
             </div>
@@ -81,10 +78,7 @@ const Notes = () => {
                 No notes are available. <br /> Start creating new notes right
                 now!
               </p>
-              <CreateNoteModal
-                getAllNotes={getAllNotes}
-                userToken={userToken}
-              />
+              <CreateNoteModal getAllNotes={getAllNotes} />
             </div>
           )}
         </div>
