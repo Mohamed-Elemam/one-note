@@ -6,7 +6,7 @@ type ProtectedRouteProps = {
 };
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  if (!sessionStorage.getItem("userToken")) {
+  if (!sessionStorage.getItem("userData")) {
     return <Navigate to="/login" />;
   }
   return <>{children}</>;

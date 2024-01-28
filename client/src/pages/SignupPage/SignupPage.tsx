@@ -1,87 +1,19 @@
-import axios, { AxiosError } from "axios";
-import { ErrorMessage, Field, Form, Formik, useFormikContext } from "formik";
-import toast, { Toaster } from "react-hot-toast";
-import * as yup from "yup";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Toaster } from "react-hot-toast";
 import LoadingButton from "../../components/LoadingButton/LoadingButton";
-import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-
-interface FormValues {
-  userName: string;
-  email: string;
-  password: string;
-  cPassword: string;
-}
-const initialValues: FormValues = {
-  userName: "",
-  email: "",
-  password: "",
-  cPassword: "",
-};
-
-const signupSchema = yup.object({
-  userName: yup
-    .string()
-    .trim()
-    .min(3, "name must be between 3 and 15 character")
-    .max(15, "name must be between 3 and 15 character")
-    .required("This field is required"),
-  email: yup.string().trim().email().required("This field is required"),
-  password: yup
-    .string()
-    .required("password is required")
-    .min(8, "Password is too short - should be 8 chars minimum.")
-    .matches(
-      /^(?=.*[A-Z])(?=.*[.!@#$%^&*])(?=.*[a-z])(?=.*[0-9]){8,}/,
-      "Must contain at least one uppercase letter, one special character (!@#$%^&*), one lowercase letter and one number"
-    ),
-  cPassword: yup
-    .string()
-    .oneOf([yup.ref("password")], "password must match")
-    .required("This field is required"),
-});
-
-const SignupButton = () => {
-  const formik = useFormikContext();
-  return (
-    <div className="flex justify-center">
-      <button
-        disabled={!(formik.isValid && formik.dirty)}
-        type="submit"
-        className="w-full disabled:opacity-50 disabled:cursor-not-allowed block rounded-lg bg-indigo-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-700 focus-visible:ring active:bg-indigo-600 md:text-base"
-      >
-        Signup
-      </button>
-    </div>
-  );
-};
+import useSignup from "../../hooks/useRegister";
+import SignupButton from "../../components/SignupButton/signupButton";
 
 export default function Signup() {
-  const [isSignupLoading, setIsSignupLoading] = useState(false);
-  const navigate = useNavigate();
-
-  const handleSignup = async (values: FormValues) => {
-    try {
-      const { data } = await axios({
-        method: "post",
-        url: import.meta.env.VITE_PRODUCTION_API_LINK + "user/signUp",
-        data: values,
-      });
-      sessionStorage.setItem("userToken", data?.userToken);
-      toast.success(data?.message);
-      navigate("/notes");
-    } catch (error: unknown) {
-      if (error instanceof AxiosError) {
-        console.log(error);
-        toast.error(error?.response?.data?.message);
-      }
-    } finally {
-      setIsSignupLoading(false);
-    }
-  };
-
+  const {
+    initialValues,
+    signupSchema,
+    handleSignup,
+    isSignupLoading,
+    setIsSignupLoading,
+  } = useSignup();
   return (
     <>
       <Helmet>

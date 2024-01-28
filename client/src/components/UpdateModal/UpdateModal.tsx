@@ -1,23 +1,21 @@
 import React from "react";
 import { Button, Modal } from "flowbite-react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios, { AxiosError } from "axios";
 import { Field, Form, Formik } from "formik";
 import { Toaster, toast } from "react-hot-toast";
 import { FaRegEdit } from "react-icons/fa";
 import { NoteCardData } from "../../pages/NotesPage/NotesPage";
+import { AuthContext } from "../../context/AuthContext";
 
 type updateModalBodyProps = {
   getAllNotes: () => Promise<void>;
-  userToken: string;
   note: NoteCardData;
 };
-const UpdateModal: React.FC<updateModalBodyProps> = ({
-  getAllNotes,
-  note,
-  userToken,
-}) => {
+const UpdateModal: React.FC<updateModalBodyProps> = ({ getAllNotes, note }) => {
   const [openModal, setOpenModal] = useState(false);
+  const { userToken } = useContext(AuthContext);
+
   interface FormValues {
     title: string;
     description: string;

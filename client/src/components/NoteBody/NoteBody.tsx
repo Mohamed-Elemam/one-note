@@ -1,23 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import axios, { AxiosError } from "axios";
 import { Tooltip } from "flowbite-react";
 import UpdateModal from "../UpdateModal/UpdateModal";
 import { Toaster, toast } from "react-hot-toast";
 import { NoteCardData } from "../../pages/NotesPage/NotesPage";
+import { AuthContext } from "../../context/AuthContext";
 
 type NoteBodyProps = {
   note: NoteCardData;
-  userToken: string;
   getAllNotes: () => Promise<void>;
 };
 
-const NoteBody: React.FC<NoteBodyProps> = ({
-  note,
-  getAllNotes,
-  userToken,
-}) => {
+const NoteBody: React.FC<NoteBodyProps> = ({ note, getAllNotes }) => {
   const [loading, setLoading] = useState(false);
+  const { userToken } = useContext(AuthContext);
 
   async function deleteNote(noteId: string) {
     try {
@@ -73,11 +70,7 @@ const NoteBody: React.FC<NoteBodyProps> = ({
           <small>{note?.updatedAt.slice(0, 10)}</small>
           <div className="flex gap-3 items-center">
             <Tooltip content="Update" placement="bottom">
-              <UpdateModal
-                getAllNotes={getAllNotes}
-                userToken={userToken}
-                note={note}
-              />
+              <UpdateModal getAllNotes={getAllNotes} note={note} />
             </Tooltip>
             <Tooltip content="Delete" placement="bottom">
               <span className="cursor-pointer hover:text-indigo-900 text-xl ">

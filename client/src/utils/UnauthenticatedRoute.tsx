@@ -6,7 +6,7 @@ type UnauthenticatedRouteProps = {
 };
 
 const UnauthenticatedRoute = ({ children }: UnauthenticatedRouteProps) => {
-  if (sessionStorage.getItem("userToken")) {
+  if (sessionStorage.getItem("userData")) {
     return <Navigate to="/notes" />;
   }
   return <>{children}</>;

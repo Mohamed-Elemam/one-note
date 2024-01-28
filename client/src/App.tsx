@@ -52,15 +52,3 @@ export default function App() {
     </>
   );
 }
-
-// <>
-//   <Routes>
-//     <Route path="/" element={<Home />} />
-//     <Route path="/login" element={<LoginPage />} />
-//     <Route path="/signup" element={<Signup />} />
-//     <Route element={<ProtectedRoute />}>
-//       <Route path="/notes" element={<Notes />} />
-//     </Route>
-//     <Route path="*" element={<NotFound />} />
-//   </Routes>
-// </>;

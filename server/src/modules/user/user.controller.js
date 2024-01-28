@@ -54,5 +54,5 @@ export const login = async (req, res, next) => {
     { email, userName: user.userName, _id: user._id },
     process.env.SIGN_IN_TOKEN_SECRET
   );
-  res.status(200).json({ message: "Login successful", userToken });
+  res.status(200).json({ message: "Login successful", userToken, user });
 };

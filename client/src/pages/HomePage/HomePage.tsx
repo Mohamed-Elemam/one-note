@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import { useContext } from "react";
 
 export default function Home() {
+  const { userToken } = useContext(AuthContext);
+
   return (
     <>
       <section className=" min-h-[100dvh] home-page ">
@@ -15,7 +19,7 @@ export default function Home() {
           </p>
 
           <div className=" w-full ">
-            {sessionStorage.getItem("userToken") ? (
+            {userToken ? (
               <Link
                 to="/notes"
                 className="inline-block rounded-lg bg-indigo-700 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-800 focus-visible:ring active:bg-indigo-700 md:text-base"

@@ -1,16 +1,18 @@
 import React from "react";
 import { Button, Modal } from "flowbite-react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios, { AxiosError } from "axios";
 import { Field, Form, Formik } from "formik";
 import { toast } from "react-hot-toast";
+import { AuthContext } from "../../context/AuthContext";
 
 type createNoteModalProps = {
   getAllNotes: () => Promise<void>;
-  userToken: string;
 };
 
-const CreateNoteModal = ({ getAllNotes, userToken }: createNoteModalProps) => {
+const CreateNoteModal = ({ getAllNotes }: createNoteModalProps) => {
+  const { userToken } = useContext(AuthContext);
+
   async function createNote(values: object) {
     try {
       const { data } = await axios({
@@ -34,7 +36,6 @@ const CreateNoteModal = ({ getAllNotes, userToken }: createNoteModalProps) => {
       }
     }
   }
-  console.log(userToken);
 
   interface FormValues {
     title: string;

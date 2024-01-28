@@ -1,85 +1,23 @@
-import axios, { AxiosError } from "axios";
-import { ErrorMessage, Field, Form, Formik, useFormikContext } from "formik";
-import { Toaster, toast } from "react-hot-toast";
-import * as yup from "yup";
-import { useState } from "react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Toaster } from "react-hot-toast";
 import LoadingButton from "../../components/LoadingButton/LoadingButton";
 import { Helmet } from "react-helmet";
-import { Link, useNavigate } from "react-router-dom";
-
-interface FormValues {
-  email: string;
-  password: string;
-}
-const initialValues: FormValues = {
-  email: "",
-  password: "",
-};
-
-const loginSchema = yup.object({
-  email: yup.string().email().required("This field is required"),
-  password: yup
-    .string()
-    .required("password is required")
-    .min(8, "Password is too short - should be 8 chars minimum.")
-    .matches(
-      /^(?=.*[A-Z])(?=.*[.!@#$%^&*])(?=.*[a-z])(?=.*[0-9]){8,}/,
-      "Must contain at least one uppercase letter, one special character (!@#$%^&*), one lowercase letter and one number"
-    ),
-});
-
-const LoginButton = () => {
-  const formik = useFormikContext();
-  return (
-    <div className="flex justify-center">
-      <button
-        disabled={!(formik.isValid && formik.dirty)}
-        type="submit"
-        className="w-full disabled:opacity-50 disabled:cursor-not-allowed block rounded-lg bg-indigo-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-700 focus-visible:ring active:bg-indigo-600 md:text-base"
-      >
-        Login
-      </button>
-    </div>
-  );
-};
-
-const demoLoginData: FormValues = {
-  email: import.meta.env.VITE_DEMO_EMAIL as string,
-  password: import.meta.env.VITE_DEMO_PASSWORD as string,
-};
+import { Link } from "react-router-dom";
+import useLogin from "../../hooks/useLogin";
+import LoginButton from "../../components/LoginButton/LoginButton";
 
 export default function LoginPage() {
-  const [isLoginLoading, setIsLoginLoading] = useState(false);
-  const [isDemoLoading, setIsDemoLoading] = useState(false);
-  const navigate = useNavigate();
+  const {
+    // LoginButton,
+    initialValues,
+    loginSchema,
+    handleDemoLogin,
+    isLoginLoading,
+    isDemoLoading,
+    setIsDemoLoading,
+    handleLogin,
+  } = useLogin();
 
-  const handleLogin = async (values: FormValues) => {
-    try {
-      const { data } = await axios({
-        method: "post",
-        url: import.meta.env.VITE_PRODUCTION_API_LINK + "user/login",
-        data: values,
-      });
-      toast.success(data?.message);
-      sessionStorage.setItem("userToken", data?.userToken);
-      navigate("/notes");
-    } catch (error: unknown) {
-      if (error instanceof AxiosError) {
-        toast.error(error?.response?.data?.message);
-      }
-    } finally {
-      setIsLoginLoading(false);
-      setIsDemoLoading(false);
-    }
-  };
-
-  const handleDemoLogin = () => {
-    handleLogin(demoLoginData);
-  };
-
-  if (sessionStorage.getItem("userToken")) {
-    navigate("/notes");
-  }
   return (
     <>
       <Helmet>

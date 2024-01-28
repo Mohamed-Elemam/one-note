@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 .env.local
-./src/contexts
+./src/context/NoteContext.tsx
 
 # Editor directories and files
 .vscode/*

@@ -1,13 +1,19 @@
 import { FcViewDetails } from "react-icons/fc";
 import { Navbar } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const NavbarComponent = () => {
+  const { userToken, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+
   const handleLogout = () => {
-    sessionStorage.removeItem("userToken");
+    sessionStorage.removeItem("userData");
+    setUser!({ userId: "", userName: "", userToken: "" });
     navigate("/");
   };
+
   return (
     <>
       <Navbar fluid className="fixed top-0 w-[100%] left-0 z-50">
@@ -26,7 +32,7 @@ const NavbarComponent = () => {
         </div>
         <Navbar.Collapse className="items-start">
           <div>
-            {sessionStorage.getItem("userToken") ? (
+            {userToken ? (
               <Link
                 to="/"
                 className=" rounded-lg  px-4 py-2 border bg-transparent border-indigo-800 hover:bg-indigo-800 focus:ring-blue-700 focus:ring transition-all hover:text-white  focus:outline-none text-base mt-4 md:mt-0"
