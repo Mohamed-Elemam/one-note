@@ -1,4 +1,5 @@
 # One-note
+One-note is full stack website built with react.js and typescript and node.js which allow user to create , delete and update their notes.
 
 ## Screenshots
 
