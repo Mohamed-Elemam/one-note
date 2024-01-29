@@ -6,10 +6,10 @@
 <img src="https://drive.google.com/uc?id=1K3HlkgoDbgYfNexz47zUxLEeQFtyA4vq" alt="home-page">
 <br>
 ### login page with demo login feature
-<img src="https://drive.google.com/file/d/1ueskOPxvpsDeGrejjeNSBVA7WviYRcu2/view?usp=drive_link" alt="login-page">
+<img src="https://drive.google.com/file/d/1ueskOPxvpsDeGrejjeNSBVA7WviYRcu2" alt="login-page">
 <br>
 ### Notes page
-<img src="https://drive.google.com/file/d/1ALG8j7uC8cwDbORNZYV16kHoWY0sxcwH/view?usp=drive_link" alt="notes-page">
+<img src="https://drive.google.com/file/d/1ALG8j7uC8cwDbORNZYV16kHoWY0sxcwH" alt="notes-page">
 
 ## Description
 
