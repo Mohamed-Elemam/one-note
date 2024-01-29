@@ -4,7 +4,7 @@ import LoadingButton from "../../components/LoadingButton/LoadingButton";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import useSignup from "../../hooks/useRegister";
-import SignupButton from "../../components/SignupButton/signupButton";
+import SignupButton from "../../components/SignupButton/SignupButton";
 
 export default function Signup() {
   const {
