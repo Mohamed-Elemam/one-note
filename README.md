@@ -2,6 +2,8 @@
 
 ![One-note Logo](https://drive.google.com/file/d/1K3HlkgoDbgYfNexz47zUxLEeQFtyA4vq/view?usp=drive_link)
 
+https://drive.google.com/file/d/1K3HlkgoDbgYfNexz47zUxLEeQFtyA4vq/view?usp=drive_link
+
 ## Description
 
 One-note is a full-stack website built with React.js, TypeScript, and Node.js. It allows users to create, delete, and update their notes. The project utilizes modern web development tools and technologies for a seamless user experience.
