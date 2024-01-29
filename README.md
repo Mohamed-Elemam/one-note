@@ -9,7 +9,7 @@
 <img src="https://drive.google.com/file/d/1ueskOPxvpsDeGrejjeNSBVA7WviYRcu2" alt="login-page">
 <br>
 ### Notes page
-<img src="https://drive.google.com/file/d/1ALG8j7uC8cwDbORNZYV16kHoWY0sxcwH" alt="notes-page">
+<img src="https://drive.google.com/file/d/1ALG8j7uC8cwDbORNZYV16kHoWY0sxcwH/view" alt="notes-page">
 
 ## Description
 
