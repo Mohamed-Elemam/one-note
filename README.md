@@ -1,8 +1,8 @@
 # One-note
 
 ![One-note Logo](https://drive.google.com/file/d/1K3HlkgoDbgYfNexz47zUxLEeQFtyA4vq/view?usp=drive_link)
-
-https://drive.google.com/file/d/1K3HlkgoDbgYfNexz47zUxLEeQFtyA4vq/view?usp=drive_link
+### Home page
+<img src="https://drive.google.com/uc?id=1K3HlkgoDbgYfNexz47zUxLEeQFtyA4vq" alt="home-page">
 
 ## Description
 
