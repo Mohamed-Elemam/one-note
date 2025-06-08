@@ -4,20 +4,26 @@ import { config } from "dotenv";
 config();
 import { dbConnection } from "./database/dbconnection.js";
 import userRouter from "./src/modules/user/user.router.js";
-import notesRouer from "./src/modules/note/note.router.js";
+import notesRouter from "./src/modules/note/note.router.js";
 
 const app = express();
 const port = process.env.PORT;
 
 dbConnection();
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["X-Requested-With", "Content-Type", "Authorization"],
+  })
+);
 app.use(express.json());
 
 app.use("/user", userRouter);
-app.use("/note", notesRouer);
+app.use("/note", notesRouter);
 
 app.get("/", (req, res, next) => {
-  res.json({ message: "Server is runnung ..." });
+  res.json({ message: "Server is running ..." });
 });
 app.use("*", (req, res, next) => {
   res.status(404).json({ message: "Error 404 url not found" });
